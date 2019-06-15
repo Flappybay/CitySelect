@@ -1,0 +1,4239 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<!-- 获得properties文件中配置的值给数据源 -->
+<beans>
+	
+	<bean id="propertyConfigurer" 
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+		    <list>
+				<value>classpath:jdbc.properties</value>
+				<value>classpath:path.properties</value>
+				<value>classpath:config.properties</value>
+		    </list>
+		</property>
+	</bean>
+	
+	<!-- 管理系统自己的数据源,采用读配置文件jdbc.properties的方法获得   -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName">
+			<value>${jdbc.driverClassName}</value>
+		</property>
+		<property name="url">
+			<value>${jdbc.url}</value>
+		</property>
+		<property name="username">
+			<value>${jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.password}</value>
+		</property>
+		<property name="maxActive">
+			<value>${jdbc.maxActive}</value>
+		</property>
+		<property name="maxIdle">
+			<value>${jdbc.maxIdle}</value>
+		</property>
+		<property name="maxWait">
+			<value>${jdbc.maxWait}</value>
+		</property>
+	</bean>
+	
+	<!-- 核心FTP属性配置 -->
+    <bean id="coreFtpConfigInfo" class="com.scheduler.FTPConfigInfo">
+        <property name="hostName"><value>${core.ftp.host}</value></property>
+        <property name="remotePort"><value>${core.ftp.port}</value></property>
+        <property name="userName"><value>${core.ftp.username}</value></property>
+        <property name="passWord"><value>${core.ftp.password}</value></property>
+        <property name="ftpMode"><value>${core.ftp.ftpmode}</value></property>
+        <property name="remoteDirName"><value>${core.ftp.childdir}</value></property>
+        <property name="localDirName"><value>${core.ftp.localPath}</value></property>
+    </bean>
+	<!-- 银联 FTP属性配置 -->
+    <bean id="cupFtpConfigInfo" class="com.scheduler.FTPConfigInfo">
+        <property name="hostName"><value>${cup.ftp.host}</value></property>
+        <property name="remotePort"><value>${cup.ftp.port}</value></property>
+        <property name="userName"><value>${cup.ftp.username}</value></property>
+        <property name="passWord"><value>${cup.ftp.password}</value></property>
+        <property name="ftpMode"><value>${cup.ftp.ftpmode}</value></property>
+        <property name="remoteDirName"><value>${cup.ftp.childdir}</value></property>
+        <property name="localDirName"><value>${cup.ftp.localPath}</value></property>
+        <property name="dateDir"><value>${cup.ftp.dateDir}</value></property>
+    </bean>    
+    <!-- 核心FTP属性配置 -->
+    <bean id="coreFtpConfigInfoForLP" class="com.scheduler.FTPConfigInfo">
+        <property name="hostName"><value>${lp.core.ftp.host}</value></property>
+        <property name="remotePort"><value>${lp.core.ftp.port}</value></property>
+        <property name="userName"><value>${lp.core.ftp.username}</value></property>
+        <property name="passWord"><value>${lp.core.ftp.password}</value></property>
+        <property name="ftpMode"><value>${lp.core.ftp.ftpmode}</value></property>
+        <property name="remoteDirName"><value>${lp.core.ftp.childdir}</value></property>
+        <property name="localDirName"><value>${lp.core.ftp.localPath}</value></property>
+    </bean>
+    <!-- 核心FTP属性配置 -->
+    <bean id="coreFtpConfigInfoForMarket" class="com.scheduler.FTPConfigInfo">
+        <property name="hostName"><value>${market.core.ftp.host}</value></property>
+        <property name="remotePort"><value>${market.core.ftp.port}</value></property>
+        <property name="userName"><value>${market.core.ftp.username}</value></property>
+        <property name="passWord"><value>${market.core.ftp.password}</value></property>
+        <property name="ftpMode"><value>${market.core.ftp.ftpmode}</value></property>
+        <property name="remoteDirName"><value>${market.core.ftp.childdir}</value></property>
+        <property name="localDirName"><value>${market.core.ftp.localPath}</value></property>
+    </bean>
+    <!-- 小帮手数据文件上传配置 -->
+     <bean id="coreSFtpConfigInfoForLP" class="com.scheduler.FTPConfigInfo">
+        <property name="hostName"><value>${lp.core.sftp.host}</value></property>
+        <property name="remotePort"><value>${lp.core.sftp.port}</value></property>
+        <property name="userName"><value>${lp.core.sftp.username}</value></property>
+        <property name="passWord"><value>${lp.core.sftp.password}</value></property>
+        <property name="ftpMode"><value>${lp.core.sftp.ftpmode}</value></property>
+        <property name="remoteDirName"><value>${lp.core.sftp.childdir}</value></property>
+        <property name="localDirName"><value>${lp.core.sftp.localPath}</value></property>
+    </bean>
+    <!-- 小帮手下载文件配置 -->
+    <bean id="SFtpConfigInfoForLP" class="com.scheduler.FTPConfigInfo">
+        <property name="hostName"><value>${lp.sftp.host}</value></property>
+        <property name="remotePort"><value>${lp.sftp.port}</value></property>
+        <property name="userName"><value>${lp.sftp.username}</value></property>
+        <property name="passWord"><value>${lp.sftp.password}</value></property>
+        <property name="ftpMode"><value>${lp.sftp.ftpmode}</value></property>
+        <property name="remoteDirName1"><value>${lp.sftp.childdir1}</value></property>
+        <property name="remoteDirName2"><value>${lp.sftp.childdir2}</value></property>
+        <property name="download_dir_path"><value>${lp.sftp.download_dir_path}</value></property>
+	    <property name="upload_dir_path"><value>${lp.sftp.upload_dir_path}</value></property>
+        <property name="localDirName"><value>${lp.sftp.localPath}</value></property>
+        <property name="ptbs"><value>${lp.sftp.ptbs}</value></property>
+    </bean>
+    <bean id="cctipFtpConfigInfoForLP" class="com.scheduler.FTPConfigInfo">
+        <property name="hostName"><value>${lp.cctip.ftp.host}</value></property>
+        <property name="remotePort"><value>${lp.cctip.ftp.port}</value></property>
+        <property name="userName"><value>${lp.cctip.ftp.username}</value></property>
+        <property name="passWord"><value>${lp.cctip.ftp.password}</value></property>
+        <property name="ftpMode"><value>${lp.cctip.ftp.ftpmode}</value></property>
+	    <property name="upload_dir_path"><value>${lp.cctip.ftp.upload_dir_path}</value></property>
+    </bean>
+    
+    <!-- 中台FTP属性配置 -->
+    <bean id="centerFtpConfigInfo" class="com.scheduler.FTPConfigInfo">
+        <property name="hostName"><value>${center.ftp.host}</value></property>
+        <property name="remotePort"><value>${center.ftp.port}</value></property>
+        <property name="userName"><value>${center.ftp.username}</value></property>
+        <property name="passWord"><value>${center.ftp.password}</value></property>
+        <property name="ftpMode"><value>${center.ftp.ftpmode}</value></property>
+        <property name="remoteDirName"><value>${center.ftp.childdir}</value></property>
+        <property name="localDirName"><value>${center.ftp.localPath}</value></property>
+        <property name="aid"><value>${center.ftp.aid}</value></property>
+    </bean>
+    
+    <!-- 卡风险监测 -->
+    <bean id="cardMonitorTran" class="com.pms.commands.CardMonitorTran">
+        <constructor-arg index="0"><value>${card.monitor.host}</value></constructor-arg>
+        <constructor-arg index="1"><value>${card.monitor.port}</value></constructor-arg>
+        <constructor-arg index="2"><value>${card.monitor.timeout}</value></constructor-arg>
+    </bean>
+    
+    <!-- 风险商户参数配置 -->
+      <bean id="paramDict" class="com.pms.riskshop.dict.ParamDict">
+         <property name="tranNumFile"><value>${riskshop.param.tranNumFile}</value></property>
+         <property name="xsdPerPath"><value>${riskshop.param.xsdPerPath}</value></property>
+         <property name="secretKeyPath"><value>${riskshop.param.secretKeyPath}</value></property>
+         <property name="pfxFilePwd"><value>${riskshop.param.pfxFilePwd}</value></property>
+         <property name="encPfxFilePwd"><value>${riskshop.param.encPfxFilePwd}</value></property>
+    </bean>
+    
+    <!-- ibatis sqlMapClient config持久化层的框架 -->
+    <bean id="sqlMapClient" 
+        class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation">
+            <value> 
+                classpath:com/kernel/dao/sqlmap/sql-map-config.xml
+            </value>
+        </property>
+        <property name="charset">
+        	<value>gbk</value>
+        </property>
+        <property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>    
+    </bean>
+    
+    <bean id="sqlMapClientYw" 
+        class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation">
+            <value> 
+                classpath:com/pms/dao/sqlmap/sql-map-config.xml
+            </value>
+        </property>
+        <property name="charset">
+        	<value>gbk</value>
+        </property>
+        <property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>    
+    </bean>
+   
+    <!-- Transactions 事务控制层-->
+    <bean id="transactionManager" 
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+    </bean>
+    
+    <bean id="transactionTemplate"  
+        class="org.springframework.transaction.support.TransactionTemplate">  
+        <constructor-arg ref="transactionManager" />  
+    </bean>  
+    
+    <bean name="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+    	<property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <bean id="terminalAudiControll" class="com.pms.monitor.TerminalAudiControl">
+    	<constructor-arg index="0" ref="jdbcTemplate"/>
+    	<constructor-arg index="1" ref="transactionTemplate"></constructor-arg>
+    </bean>
+    
+	
+	<!-- 商户银联入档文件导出 -->
+	<bean id="cupsShopExport" class="com.kernel.impexp.CupsShopExport">
+		<constructor-arg index="0">
+			<ref bean="jdbcTemplate"/>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>{call PROC_SHOP_EXPORT(?,?,?,?,?)}</value>
+		</constructor-arg>
+	</bean>
+	<!-- 新商户银联入档文件导出 -->
+	<bean id="cupsShopNewExport" class="com.kernel.impexp.CupsShopExport">
+		<constructor-arg index="0">
+			<ref bean="jdbcTemplate"/>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>{call PROC_SHOP_EXPORT(?,?,?,?,?)}</value>
+		</constructor-arg>
+	</bean>
+	<!-- 新商户银联入档文件导出 -->
+	<bean id="cupsShopNewRegisterExport" class="com.kernel.impexp.CupsShopExport">
+		<constructor-arg index="0">
+			<ref bean="jdbcTemplate"/>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>{call PROC_SHOP_EXPORT(?,?,?,?,?)}</value>
+		</constructor-arg>
+	</bean>	
+	<!-- 传统终端银联入档文件导出 -->
+	<bean id="cupsTerminalExport" class="com.kernel.impexp.CupsTerminalExport">
+		<constructor-arg index="0">
+			<ref bean="jdbcTemplate"/>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>{call PROC_TERMINAL_EXPORT(?,?,?,?,?)}</value>
+		</constructor-arg>
+	</bean>
+	<!-- 新终端银联入档文件导出 -->
+	<bean id="cupsTerminalNewExport" class="com.kernel.impexp.CupsTerminalExport">
+		<constructor-arg index="0">
+			<ref bean="jdbcTemplate"/>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>{call PROC_TERMINAL_EXPORT(?,?,?,?,?)}</value>
+		</constructor-arg>
+	</bean>	
+	<!-- 蔬菜机（手持终端）银联入档稳健导出 -->
+	<bean id="cupsVegTerminalExport" class="com.kernel.impexp.CupsVegTerminalExport">
+		<constructor-arg index="0">
+			<ref bean="jdbcTemplate"/>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>{call PROC_VEG_TERMINAL_EXPORT(?,?,?,?)}</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="keyBean" class="com.pms.commands.KeyBean">
+		<property name="sjl06eHsmBean">
+			<bean class="com.jiewen.commons.hsm.keyou.Sjl06eHsmManager">
+				<constructor-arg index='0'>
+					<value>${c_zmk_cipher2}</value>
+				</constructor-arg>
+				<constructor-arg index='1'>
+					<bean class="com.jiewen.commons.hsm.HsmInfo">
+						<property name="address"><value>${hsm.address}</value></property>
+						<property name="port"><value>${hsm.port}</value></property>
+						<property name="timeout"><value>${hsm.timeout}</value></property>
+					</bean>
+				</constructor-arg>
+			</bean>
+		</property>
+		<property name="bankZmk">
+			<value>${c_zmk_cipher}</value>
+		</property>
+		<property name="pensionZmk">
+			<value>${pension_zmk_cipher}</value>
+		</property>
+	</bean>
+	<!-- 秘钥创建 -->
+	<bean id="createKeyBean" class="com.pms.commands.CreateKeyBean">
+		<property name="keyManager" ref="commonKeyManager" />
+	</bean>
+	
+	<!-- 密管接口处理 -->
+    <bean id="commonKeyManager" class="com.jiewen.posp.kms.impl.KeyManagerImpl">
+        <property name="appId"><value>${bjrcb.kms.appId}</value></property>
+        <property name="confFile"><value>${confFile}</value></property>
+    </bean>
+    
+    <!-- 二维码商户 -->
+    <bean id="gatewayTran" class="com.gateway.commands.GatewayTran">
+        <constructor-arg index="0"><value>${gateway.ords.host}</value></constructor-arg>
+        <constructor-arg index="1"><value>${gateway.ords.port}</value></constructor-arg>
+        <constructor-arg index="2"><value>${gateway.ords.timeout}</value></constructor-arg>
+    </bean>
+    <!-- persistence layer -->
+    <!-- ========================= 数据访问层(DAO)接口对象 ========================= -->
+    <bean id="FormDao" class="com.kernel.dao.sqlmapdao.screen.FormSqlMapDao">
+        <property name="sqlMapClient">
+            <ref local="sqlMapClient"/>
+        </property>
+    </bean>
+    <bean id="BankOrgDao" class="com.pms.dao.sqlmapdao.manager.BankOrgSqlMapDao">
+        <property name="sqlMapClient">
+            <ref local="sqlMapClientYw"/>
+        </property>
+    </bean>
+    <bean id="RoleDao" class="com.pms.dao.sqlmapdao.manager.RoleSqlMapDao">
+        <property name="sqlMapClient">
+            <ref local="sqlMapClientYw"/>
+        </property>
+    </bean>
+    <bean id="UserInfoDao" class="com.pms.dao.sqlmapdao.manager.UserInfoSqlMapDao">
+        <property name="sqlMapClient">
+            <ref local="sqlMapClientYw"/>
+        </property>
+    </bean>
+    <bean id="SysNumDao" class="com.pms.dao.sqlmapdao.manager.SysNumSqlMapDao">
+        <property name="sqlMapClient">
+            <ref local="sqlMapClientYw"/>
+        </property>
+    </bean>
+    <bean id="SysConfigDao" class="com.pms.dao.sqlmapdao.manager.SysConfigSqlMapDao">
+        <property name="sqlMapClient">
+            <ref local="sqlMapClientYw"/>
+        </property>
+    </bean>
+    <!-- 屏幕滚动快捷提示维护-->
+	<bean id="SysDynamicMsgDao"
+		class="com.pms.dao.sqlmapdao.manager.SysDynamicMsgSqlMapDao">
+			<property name="sqlMapClient">
+				<ref local="sqlMapClientYw" />
+			</property>
+	</bean>   
+	 <!-- 日志管理 -->
+	<bean id="SysLogDao" class="com.kernel.dao.sqlmapdao.sys.SysLogSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClient" />
+		</property>
+	</bean>
+
+    <!-- ***************************** 工作流部分 *******************************-->
+    
+    <bean id="ActorDao" class="com.pms.dao.sqlmapdao.workflow.ActorSqlMapDao">
+        <property name="sqlMapClient">
+            <ref local="sqlMapClientYw"/>
+        </property>
+    </bean>
+    
+    <bean id="AuthDao" class="com.pms.dao.sqlmapdao.workflow.AuthSqlMapDao">
+        <property name="sqlMapClient">
+            <ref local="sqlMapClientYw"/>
+        </property>
+    </bean>
+    
+    <bean id="FunDao" class="com.pms.dao.sqlmapdao.workflow.FunSqlMapDao">
+        <property name="sqlMapClient">
+            <ref local="sqlMapClientYw"/>
+        </property>
+    </bean>
+    
+    <bean id="FlowDao" class="com.pms.dao.sqlmapdao.workflow.FlowSqlMapDao">
+        <property name="sqlMapClient">
+            <ref local="sqlMapClientYw"/>
+        </property>
+    </bean>
+    
+    <bean id="ApplyFlowDao" class="com.pms.dao.sqlmapdao.workflow.ApplyFlowSqlMapDao">
+        <property name="sqlMapClient">
+            <ref local="sqlMapClientYw"/>
+        </property>
+    </bean>
+    
+    <bean id="CtrlAuthOutgoDao" class="com.pms.dao.sqlmapdao.workflow.CtrlAuthOutgoSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+    </bean>
+    
+    <!--机构受控业务 -->
+	<bean id="SysControlDao"
+		class="com.pms.dao.sqlmapdao.workflow.SysControlSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+    <!-- 角色授权 -->
+	<bean id="SysRoleAuthDao" class="com.pms.dao.sqlmapdao.manager.SysRoleAuthSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+    
+      <!--获取序列-->
+    <bean id="SequenceDao" class="com.pms.dao.sqlmapdao.sequence.SequenceSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+    </bean>
+    
+    <!-- 业务申请种类维护-->
+	<bean id="AppBizTypeDao"
+		class="com.pms.dao.sqlmapdao.apply.AppBizTypeSqlMapDao">
+			<property name="sqlMapClient">
+				<ref local="sqlMapClientYw" />
+			</property>
+	</bean>
+	
+	<!-- 审批附件文档-->
+	<bean id="AppDocManageDao"
+		class="com.pms.dao.sqlmapdao.apply.AppDocManageSqlMapDao">
+			<property name="sqlMapClient">
+				<ref local="sqlMapClientYw" />
+			</property>
+	</bean>
+	
+	 <!-- 邮件处理 -->
+	<bean id="DeskMailDao" class="com.pms.dao.sqlmapdao.manager.DeskMailSqlMapDao">
+        <property name="sqlMapClient">
+            <ref local="sqlMapClientYw"/>
+        </property>
+    </bean>
+   	<bean id="DeskMailRecvDao" class="com.pms.dao.sqlmapdao.manager.DeskMailRecvSqlMapDao">
+        <property name="sqlMapClient">
+            <ref local="sqlMapClientYw"/>
+        </property>
+    </bean>
+    <!-- 行内通知公告 -->
+	<bean id="InnerNoticeDao"
+		class="com.pms.dao.sqlmapdao.manager.InnerNoticeSqlMapDao">
+			<property name="sqlMapClient">
+				<ref local="sqlMapClientYw" />
+			</property>
+	</bean>
+	
+	<!-- 系统参数维护(POS) -->
+	<bean id="SystemParameterDao" class="com.pms.dao.sqlmapdao.manager.SystemParameterSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 集团商户 -->
+	<bean id="ShopRingDao" class="com.pms.dao.sqlmapdao.posp.ShopRingSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 商户信息维护 -->
+	<bean id="ShopDao" class="com.pms.dao.sqlmapdao.posp.ShopSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 商户折扣率 -->
+	<bean id="ShopRateDao" class="com.pms.dao.sqlmapdao.posp.ShopRateSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 子商户信息维护 -->
+	<bean id="SubMerchantDao" class="com.pms.dao.sqlmapdao.posp.SubMerchantSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 子商户信息维护 -->
+	<bean id="SubMerchantAudingDao" class="com.pms.dao.sqlmapdao.posp.SubMerchantSqlMapAudingDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 子商户信息维护 -->
+	<bean id="ApplyDao" class="com.pms.dao.sqlmapdao.posp.ApplySqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 子商户信息维护 -->
+	<bean id="ApplyStepDao" class="com.pms.dao.sqlmapdao.posp.ApplyStepSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 终端信息 -->
+	<bean id="TerminalDao" class="com.pms.dao.sqlmapdao.posp.TerminalSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 终端参数模板 -->
+	<bean id="TerminalParaDao" class="com.pms.dao.sqlmapdao.posp.TerminalParaSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 安全参数模板 -->
+	<bean id="PsamParaDao" class="com.pms.dao.sqlmapdao.posp.PsamParaSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 卡表管理 -->
+	<bean id="CardsDao" class="com.pms.dao.sqlmapdao.posp.CardsSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 优惠地区管理 -->
+	<bean id="ZonePreferenceDao" class="com.pms.dao.sqlmapdao.posp.ZonePreferenceSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 收费机构 -->
+	<bean id="UnitInfoDao" class="com.pms.dao.sqlmapdao.posp.UnitInfoSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 网点柜员信息 -->
+	<bean id="NetOperDao" class="com.pms.dao.sqlmapdao.posp.NetOperSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 我的收款人 -->
+	<bean id="MyCustomerDao" class="com.pms.dao.sqlmapdao.posp.MyCustomerSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>	
+		<!-- 手续费率管理 -->
+	<bean id="FeeRateDao" class="com.pms.dao.sqlmapdao.posp.FeeRateSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 交易限额管理 -->
+	<bean id="TransactionLimitDao" class="com.pms.dao.sqlmapdao.posp.TransactionLimitSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 市场资料管理 -->
+	<bean id="MarketDao" class="com.pms.dao.sqlmapdao.posp.MarketSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 未能识别卡管理 -->
+	<bean id="UnknownCardDao" class="com.pms.dao.sqlmapdao.posp.UnknownCardSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 交易定义 -->
+	<bean id="TransDefDao" class="com.pms.dao.sqlmapdao.epay.TransDefSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 应用定义 -->
+	<bean id="AppDefDao" class="com.pms.dao.sqlmapdao.epay.AppDefSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 操作提示信息 -->
+	<bean id="OperationInfoDao" class="com.pms.dao.sqlmapdao.epay.OperationInfoSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 功能提示信息 -->
+	<bean id="FunctionInfoDao" class="com.pms.dao.sqlmapdao.epay.FunctionInfoSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 临时操作提示信息 -->
+	<bean id="OperationTempDao" class="com.pms.dao.sqlmapdao.epay.OperationTempSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 打印索引项目 -->
+	<bean id="PrintDataDao" class="com.pms.dao.sqlmapdao.epay.PrintDataSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 打印记录信息 -->
+	<bean id="PrintInfoDao" class="com.pms.dao.sqlmapdao.epay.PrintInfoSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 打印凭条模板 -->
+	<bean id="PrintModuleDao" class="com.pms.dao.sqlmapdao.epay.PrintModuleSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 操作指令表 -->
+	<bean id="CommandsDao" class="com.pms.dao.sqlmapdao.epay.CommandsSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 动态菜单 -->
+	<bean id="DynamicMenuDao" class="com.pms.dao.sqlmapdao.epay.DynamicMenuSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 应用菜单定制 -->
+	<bean id="AppMenuDao" class="com.pms.dao.sqlmapdao.epay.AppMenuSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 支付账单信息 -->
+	<bean id="PayListDao" class="com.pms.dao.sqlmapdao.epay.PayListSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 账单大类 -->
+	<bean id="PayClassDao" class="com.pms.dao.sqlmapdao.epay.PayClassSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 账单小类 -->
+	<bean id="PayTypeDao" class="com.pms.dao.sqlmapdao.epay.PayTypeSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 交易指令 -->
+	<bean id="TransCommandsDao" class="com.pms.dao.sqlmapdao.epay.TransCommandsSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 错误提示信息 -->
+	<bean id="ErrorInfoDao" class="com.pms.dao.sqlmapdao.epay.ErrorInfoSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 交易路由 -->
+	<bean id="ModuleDao" class="com.pms.dao.sqlmapdao.epay.ModuleSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 弹出查询 -->
+	<bean id="ShowDialogDao" class="com.pms.dao.sqlmapdao.dialog.ShowDialogSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 短信通知 -->
+	<bean id="ShortMessageDao" class="com.pms.dao.sqlmapdao.epay.ShortMessageSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 广告信息 -->
+	<bean id="FirstPageDao" class="com.pms.dao.sqlmapdao.epay.FirstPageSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 密钥表 -->
+	<bean id="PosKeyDao" class="com.pms.dao.sqlmapdao.epay.PosKeySqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 品牌管理 -->
+	<bean id="BrandDao" class="com.pms.dao.sqlmapdao.posp.BrandSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+		<!-- 绑定卡终端 -->
+	<bean id="RegisterCardDao" class="com.pms.dao.sqlmapdao.posp.RegisterCardSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- POS机构信息 -->
+	<bean id="DeptDao" class="com.pms.dao.sqlmapdao.posp.DeptSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 供货商管理 -->
+	<bean id="SupplierDao" class="com.pms.dao.sqlmapdao.posp.SupplierSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- zkl POS维护厂商管理 -->
+	<bean id="MaintainDao" class="com.pms.dao.sqlmapdao.posp.MaintainSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 商户组别表 -->
+	<bean id="ShopGroupDao" class="com.pms.dao.sqlmapdao.posp.ShopGroupSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 商户类别(MCC)对照表 -->
+	<bean id="ShopKindDao" class="com.pms.dao.sqlmapdao.posp.ShopKindSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 商户交易等级代码表 -->
+	<bean id="ShopTransLevelDao" class="com.pms.dao.sqlmapdao.posp.ShopTransLevelSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 手续费参数表(普通POS) -->
+	<bean id="FeeParaDao" class="com.pms.dao.sqlmapdao.posp.FeeParaSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 集团商户表 -->
+	<bean id="GroupShopDao" class="com.pms.dao.sqlmapdao.posp.GroupShopSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 集团商户表 -->
+	<bean id="CusDocDao" class="com.pms.dao.sqlmapdao.posp.CusDocSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 商户、终端审批表 -->
+	<bean id="AppMessageDao" class="com.pms.dao.sqlmapdao.posp.AppMessageSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 风险预警指标 -->
+	<bean id="AlertOptionDao" class="com.pms.dao.sqlmapdao.posp.AlertOptionSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 预警商户登记处理表 -->
+	<bean id="AlertShopDao" class="com.pms.dao.sqlmapdao.posp.AlertShopSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 不良商户登记 -->
+	<bean id="BadShopDao" class="com.pms.dao.sqlmapdao.posp.BadShopSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 普通_终端信息表 -->
+	<bean id="TerminalNormalDao" class="com.pms.dao.sqlmapdao.posp.TerminalNormalSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<bean id="audiShopTempDao" class="com.pms.dao.sqlmapdao.posp.AudiShopSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<bean id="audiGroupShopTempDao" class="com.pms.dao.sqlmapdao.posp.AudiGroupShopSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<bean id="InstitutionDao" class="com.pms.dao.sqlmapdao.manager.InstitutionSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<bean id="logClearDao" class="com.pms.dao.sqlmapdao.manager.LogClearSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<bean id="historylsDao" class="com.pms.dao.sqlmapdao.epay.HistoryLsSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<bean id="optionDao" class="com.pms.dao.sqlmapdao.epay.OptionSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 商户手续费 -->
+	<bean id="ShopFeeParaDao" class="com.pms.dao.sqlmapdao.posp.ShopFeeParaSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 第三方服务公司 -->
+	<bean id="ThirdPartyCompaniesDao" class="com.pms.dao.sqlmapdao.posp.ThirdPartyCompaniesSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 商户终端资料参数 -->
+	<bean id="DataConfigDao" class="com.pms.dao.sqlmapdao.posp.DataConfigSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 终端审核 -->
+	<bean id="AudiHistoryDao" class="com.pms.dao.sqlmapdao.posp.AudiHistorySqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<bean id="terminalKeyDao" class="com.pms.dao.sqlmapdao.posp.TerminalKeySqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<bean id="AudiHistoryShopDao" class="com.pms.dao.sqlmapdao.posp.AudiHistoryShopSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 商户信息扩展 -->
+	<bean id="ShopExtDao" class="com.pms.dao.sqlmapdao.posp.ShopExtSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 终端信息扩展 -->
+	<bean id="TerminalExtDao" class="com.pms.dao.sqlmapdao.posp.TerminalExtSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 折扣率算法 -->
+	<bean id="ShopRateAlgDao" class="com.pms.dao.sqlmapdao.posp.ShopRateAlgSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 地区编号 -->
+	<bean id="ZoneDictionaryDao" class="com.pms.dao.sqlmapdao.posp.ZoneDictionarySqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 商户外卡 -->
+	<bean id="ShopCardIntDao" class="com.pms.dao.sqlmapdao.posp.ShopCardIntSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 终端审核 -->
+	<bean id="AppTermMesageDao" class="com.pms.dao.sqlmapdao.posp.AppTermMesageSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<bean id="terminalAuditDao" class="com.pms.dao.sqlmapdao.posp.TerminalAuditSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<bean id="terminalNormalAuditDao" class="com.pms.dao.sqlmapdao.posp.TerminalNormalAuditSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 多列参数维护 -->
+	<bean id="SysDataConfigDao" class="com.pms.dao.sqlmapdao.posp.SysDataConfigSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- MCC和分润算法关联 -->
+	<bean id="MccFeeRelevanceDao" class="com.pms.dao.sqlmapdao.posp.MccFeeRelevanceSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<bean id='TermExportCupsDao' class="com.pms.dao.sqlmapdao.posp.TermExportCupsSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+<!-- 多列参数维护 -->
+	<bean id="SysDataOptionsDao" class="com.pms.dao.sqlmapdao.posp.SysDataOptionsSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 多列参数维护 -->
+	<bean id="BathTerminalAudiDao" class="com.pms.dao.sqlmapdao.posp.BathTerminalAudiSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 发卡行分润算法代码 -->
+	<bean id="IssuerfeeaclDao" class="com.pms.dao.sqlmapdao.posp.IssuerfeeaclSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 商户手续费代码对应  -->
+	<bean id="ShopFeeCodeDao" class="com.pms.dao.sqlmapdao.posp.ShopFeeCodeSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<bean id="MerchantDao" class="com.pms.dao.sqlmapdao.manager.MerchantSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<bean id="exportExcleDayDao" class="com.pms.dao.sqlmapdao.posp.ExportExcleSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<bean id="exportExcleReturnFundDayDao" class="com.pms.dao.sqlmapdao.posp.ExportExcleReturnFundDaySqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<bean id="sysDateApplyDao" class="com.pms.dao.sqlmapdao.posp.SysDateApplySqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<bean id="sysWorkdateDao" class="com.pms.dao.sqlmapdao.posp.SysWorkdateSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<bean id="feeAssingDao" class="com.pms.dao.sqlmapdao.posp.FeeAssingSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<bean id="sysCfgParaDao" class="com.pms.dao.sqlmapdao.posp.SysCfgParaSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<bean id="subMerchantLevelDao" class="com.pms.dao.sqlmapdao.posp.SubMerchantLevelSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- cuixinhui add -->
+	<bean id="elcBillRateDao" class="com.pms.dao.sqlmapdao.posp.ElcBillRateSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+    
+    <!-- 分期商品费率 维护 zhangkailiang add-->
+	<bean id="fenqiParaProductDao" class="com.pms.dao.sqlmapdao.posp.FenqiParaProductSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!--商户黑名单  zhangkailiang add-->
+	<bean id="shopBlacklistDao" class="com.pms.dao.sqlmapdao.posp.ShopBlacklistSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- POS分期信用对账   zhouya  add   -->
+	<bean id="creditCardTranRecDao" class="com.batch.dao.CreditCardTranRecSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 附件   zhouya  add   -->
+	<bean id="commAttachDao" class="com.pms.dao.sqlmapdao.posp.CommAttachSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 搜索   zhouya  add   -->
+	<bean id="autoSearchDao" class="com.pms.dao.sqlmapdao.posp.AutoSearchSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 集团信息维护 -->
+	<bean id="groupsDao" class="com.pms.dao.sqlmapdao.posp.GroupsSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 集团信息与商户对应关系维护 -->
+	<bean id="groupsToShopDao" class="com.pms.dao.sqlmapdao.posp.GroupsToShopSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!--终端编号对应关系 -->
+	<bean id="terminalCorrelateDao" class="com.pms.dao.sqlmapdao.posp.TerminalCorrelateSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 配置信息维护 -->
+	<bean id="translationDao" class="com.pms.dao.sqlmapdao.posp.TranslationSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 终端临时表操作-->
+	<bean id="terminalTempDao" class="com.pms.dao.sqlmapdao.posp.TerminalTempSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 终端 审批信息-->
+	<bean id="terminalOperateRecordDao" class="com.pms.dao.sqlmapdao.posp.TerminalOperateRecordSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+
+	<!-- 用户操作权限-->
+	<bean id="sysAuthorityDao" class="com.pms.dao.sqlmapdao.posp.SysAuthoritySqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	<!-- 终端策略维护-->
+	<bean id="terminalStrategyDao" class="com.pms.dao.sqlmapdao.posp.TerminalStrategySqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<bean id="terminalStrategyMaintainDao" class="com.pms.dao.sqlmapdao.posp.TerminalStrategyMaintainSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 终端策略更新状态查询-->
+	<bean id="tmspTranRecDao" class="com.pms.dao.sqlmapdao.posp.TmspTranRecSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 终端交易统计查询 -->
+	<bean id="tearmTransSumDaoTwo" class="com.pms.dao.sqlmapdao.posp.TermTransSumSqlMapTwo">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+
+	<!-- 终端交易统计详细查询 -->
+	<bean id="tearmTransSumDao" class="com.pms.dao.sqlmapdao.posp.TermTransSumSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+
+	<!-- 商户交易统计 -->
+	<bean id="ShopTransSumDao" class="com.pms.dao.sqlmapdao.posp.ShopTransSumSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>		
+	</bean>
+	
+	<!--  商户交易统	计详细查看 --> 
+	<bean id="ShopTransSumDetailDao" class="com.pms.dao.sqlmapdao.posp.ShopTransSumDetailSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>		
+	</bean>	
+	<!-- POS巡检任务 -->
+	<bean id="posInspectDao" class="com.pms.dao.sqlmapdao.posp.PosInspectSqlMapDao">
+	    <property name="sqlMapClient">
+	        <ref local="sqlMapClientYw"/>
+	    </property>
+	</bean>
+	<bean id="pospTranRecDao" class="com.pms.dao.sqlmapdao.posp.PospTranRecSqlMapDao">
+	    <property name="sqlMapClient">
+	        <ref local="sqlMapClientYw"/>
+	    </property>
+	</bean>
+	<!-- 商户白名单 -->
+	<bean id="shopWhiteListDao" class="com.pms.dao.sqlmapdao.posp.ShopWhiteListSqlMapDao">
+	    <property name="sqlMapClient">
+	        <ref local="sqlMapClientYw"/>
+	    </property>
+	</bean>
+    <!-- 自收单集团子商户管理 -->
+	<bean id="subclassOfBlocShopDao" class="com.pms.dao.sqlmapdao.posp.SubclassOfBlocShopSqlMapDao">
+	    <property name="sqlMapClient">
+	        <ref local="sqlMapClientYw"/>
+	    </property>
+	</bean>
+
+	<!-- 工单信息 -->
+	<bean id="termBillDao" class="com.pms.dao.sqlmapdao.posp.TermBillSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean> 
+	
+	<!-- 任务流程维护 -->
+	<bean id="taskHandleDao" class="com.pms.dao.sqlmapdao.posp.TaskHandleSqlMapDao">
+    <property name="sqlMapClient">
+        <ref local="sqlMapClientYw"/>
+    </property>
+	</bean>
+	<!-- 任务校验 -->
+	<bean id="taskVerifyDao" class="com.pms.dao.sqlmapdao.posp.TaskVerifySqlMapDao">
+	    <property name="sqlMapClient">
+	        <ref local="sqlMapClientYw"/>
+	    </property>
+	</bean>	 
+	<!-- 灌装任务报表-->
+	<bean id="taskReportDao" class="com.pms.dao.sqlmapdao.posp.TaskReportSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>	
+	<!-- 装机任务报表-->
+	<bean id="taskInstallFormsDao" class="com.pms.dao.sqlmapdao.posp.TaskInstallFormsSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+	<!-- 撤机任务报表-->
+	<bean id="taskRecallFormsDao" class="com.pms.dao.sqlmapdao.posp.TaskRecallFormsSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+	<!-- 任务全量报表-->
+	<bean id="taskReportDetailsDao" class="com.pms.dao.sqlmapdao.posp.TaskReportDetailSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+	<!--终端资料管理导出-->
+	<bean id="terminalDataManageDao" class="com.pms.dao.sqlmapdao.posp.TerminalDataManageSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+
+	<bean id="districtDynamicDao" class="com.pms.dao.sqlmapdao.posp.DistrictDynamicSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>	
+	<bean id="addressDistrictDao" class="com.pms.dao.sqlmapdao.posp.AddressDistrictSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>			
+	
+	<!-- 变更的商户信息 -->
+	<bean id="shopUpdateInfoDao" class="com.pms.dao.sqlmapdao.posp.ShopUpdateInfoSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>	
+	<!-- 终端密钥管理 -->
+	<bean id="terminalSecretKeyDao" class="com.pms.dao.sqlmapdao.posp.TerminalSecretKeySqlMapDao">
+		<property name="sqlMapClient">     
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+	<!-- 机具设备信息查询 -->
+	<bean id="PosInfoDao" class="com.pms.dao.sqlmapdao.posp.PosInfoSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 机具申领 -->
+	<bean id="PosApplyDao" class="com.pms.dao.sqlmapdao.posp.PosApplySqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>		
+	<!-- 机具送修及返还 -->
+	<bean id="PosFixDao" class="com.pms.dao.sqlmapdao.posp.PosFixSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>	
+	<!-- 机具归还-->
+	<bean id="PosReturnDao" class="com.pms.dao.sqlmapdao.posp.PosReturnSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>	
+	<!-- 机具领用归还明细查询 -->
+	<bean id="PosUseAndReturnDao" class="com.pms.dao.sqlmapdao.posp.PosUseAndReturnSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>	
+	<!-- 机具历史流转记录插入-->
+	<bean id="PosRunningDao" class="com.pms.dao.sqlmapdao.posp.PosRunningSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!-- 机具维修厂商管理-->
+	<bean id="FixFirmDao" class="com.pms.dao.sqlmapdao.posp.FixFirmSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>	
+	<!-- 机具送修及归还查询 -->
+	<bean id="RepairRevertDao" class="com.pms.dao.sqlmapdao.posp.RepairRevertSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+<!-- 机具丢失查询 -->
+	<bean id="LoseQueryDao" class="com.pms.dao.sqlmapdao.posp.LoseQuerySqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>	
+	<!-- 手工入库 -->
+	<bean id="ManualDisposeDao" class="com.pms.dao.sqlmapdao.posp.ManualSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>	
+	<!-- 设备领用及归还查询
+	<bean id="RevertReportDao" class="com.pms.dao.sqlmapdao.posp.RevertReportSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>	
+	 -->
+	<!-- 维保商出库明细查询 -->
+	<bean id="MaintainFirmStockDao" class="com.pms.dao.sqlmapdao.posp.MaintainStockSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>	
+	<!-- 维保商入库明细查询 -->
+	<bean id="MaintainAccessDao" class="com.pms.dao.sqlmapdao.posp.MaintainAccessSplMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>	
+	<!-- 厂商送修及修复明细查询 -->
+	<bean id="FixFirmRestoreDao" class="com.pms.dao.sqlmapdao.posp.FixFirmRestoreSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>	
+	<!-- 运维暂管明细查询 -->
+	<bean id="TransientHandleDao" class="com.pms.dao.sqlmapdao.posp.TransientHandleSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+	<!-- 运维暂管设备查询 -->
+	<bean id="posManageTempDao" class="com.pms.dao.sqlmapdao.posp.PosManageTempSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>			
+	<!-- 机具变更查询 -->
+	<bean id="posAlterSqlMapDao" class="com.pms.dao.sqlmapdao.posp.PosAlterSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+	<!-- 机具丢失查询 日月报表-->
+	<bean id="equipLoseRepFormsSqlMapDao" class="com.pms.dao.sqlmapdao.posp.EquipLoseRepFormsSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+	<!-- 手工入库处理 日月报表-->
+	<bean id="eqPutInStorageRepFormSqlMapDao" class="com.pms.dao.sqlmapdao.posp.EqPutInStorageRepFormSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+	<!-- 在用机具布放汇总统计报表-->
+	<bean id="equipInUsingRepFormsDao" class="com.pms.dao.sqlmapdao.posp.EquipInUsingRepFormsSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+	<!-- 各支行机具使用情况汇总统计报表-->
+	<bean id="equipInUseForBankSqlMapDao" class="com.pms.dao.sqlmapdao.posp.EquipInUseForBankSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+	<!-- 各维保商工作时效统计报表 -->
+	<bean id="eqMaintainFirmWorkingSqlMapDao" class="com.pms.dao.sqlmapdao.posp.EqMaintainFirmWorkingSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>	
+	<!-- 各维保商装撤机任务未完成报表 -->
+	<bean id="eqMaintainFirmNotFinishSqlMapDao" class="com.pms.dao.sqlmapdao.posp.EqMaintainFirmNotFinishSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>	
+	<!-- 营销活动总规则 -->
+	<bean id="MarketingActivityDao" class="com.pms.dao.sqlmapdao.posp.MarketingActivitySqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>	
+	<!-- 营销卡片规则 -->
+	<bean id="cardRuleDao" class="com.pms.dao.sqlmapdao.posp.CardRuleSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>		
+	<!-- 机具撤回待处理-->
+	<bean id="RecallWaitSqlMapDao" class="com.pms.dao.sqlmapdao.posp.RecallWaitSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+	<!-- 设备领用及归还查询 -->
+	<bean id="DrawReturnFormDao" class="com.pms.dao.sqlmapdao.posp.DrawFormSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>	
+	<!-- 维保商工作时效-->
+	<bean id="maintainWorkAgingDao" class="com.pms.dao.sqlmapdao.posp.MaintainWorkAgingSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+	<!-- 工作日历维护-->
+	<bean id="posWorkDateDao" class="com.pms.dao.sqlmapdao.posp.PosWorkDateSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+	<!-- 营销规则查询-->
+	<bean id="pospMarketRuleDao" class="com.pms.dao.sqlmapdao.posp.PospMarketRuleSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+	<!-- 银联商户或终端入档文件查询-->                                    
+	<bean id="shopOrPosToUnionpayDao" class="com.pms.dao.sqlmapdao.posp.ShopOrPosToUnionpaySqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+	
+	<!-- 银联入档文件导出 -->
+	<bean id="cupsExportDao" class="com.pms.dao.sqlmapdao.posp.CupsExportSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+		
+	<!-- 营销结算查询 -->
+	<bean id="marketSettleDao" class="com.pms.dao.sqlmapdao.posp.MarketSettleSqlMapDao">
+	    <property name="sqlMapClient">
+	        <ref local="sqlMapClientYw"/>
+	    </property>
+	</bean>
+	
+	<!-- 营销交易参数配置 -->
+	<bean id="marketTranParamDao" class="com.pms.dao.sqlmapdao.posp.MarketTranParamSqlMapDao">
+	    <property name="sqlMapClient">
+	        <ref local="sqlMapClientYw"/>
+	    </property>
+	</bean>
+	<!--黑名单商户 -->
+	<bean id="blacklistShopDao" class="com.pms.dao.sqlmapdao.posp.BlacklistShopSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!--风险商户信息上报-->
+	<bean id="shopRiskInfoCommitDao" class="com.pms.dao.sqlmapdao.posp.ShopRiskInfoCommitSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!--企业商户信息上报-->
+	<bean id="businessShopCommitDao" class="com.pms.dao.sqlmapdao.posp.BusinessShopCommitSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!--特约商户信息差错处理-->
+	<bean id="contributShopDisposeDao" class="com.pms.dao.sqlmapdao.posp.ContributShopDisposeSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!--用户登录登出-->
+	<bean id="userloginSynchroDao" class="com.pms.dao.sqlmapdao.posp.UserloginSynchroSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!--风险商户临时表-->
+	<bean id="queryRiskInfoDao" class="com.pms.dao.sqlmapdao.posp.QueryRiskInfoSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!--特约商户入库-->
+	<bean id="riskInfoResDao" class="com.pms.dao.sqlmapdao.posp.RiskInfoResSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!--商户上传异常-->
+	<bean id="shopUploadExceptionDao" class="com.pms.dao.sqlmapdao.posp.ShopUploadExceptionSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<!--风险信息变更同步-->
+	
+	<bean id="shopRiskInfoModifyDao" class="com.pms.dao.sqlmapdao.posp.ShopRiskInfoModifySqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	
+	
+	<!-- 二维码商户 -->
+	<bean id="qrCodeShopDao" class="com.pms.dao.sqlmapdao.posp.QRCodeShopSqlMapDao">
+	    <property name="sqlMapClient">
+	        <ref local="sqlMapClientYw"/>
+	    </property>
+	</bean>	
+	
+	<!-- 微信商户 -->
+	<bean id="WechatShopDao" class="com.pms.dao.sqlmapdao.posp.WechatShopSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>	
+	
+	<!-- 微信营销消费类目费率结算-->
+	<bean id="businessCategoryDao" class="com.pms.dao.sqlmapdao.posp.BusinessCategorySqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>	
+	
+	<!-- 参数配置维护-->
+	<bean id="paramInfoDao" class="com.pms.dao.sqlmapdao.posp.ParamInfoSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw"/>
+		</property>
+	</bean>
+    <!-- ========================= 业务逻辑层对象 ========================= -->
+    
+    <bean id="proxyTemplate1" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+        <property name="transactionManager">
+            <ref local="transactionManager"></ref>
+        </property>
+        <property name="proxyTargetClass">
+            <value>true</value>
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="insert*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="update*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="del*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="save*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="audit*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="newBuild*">PROPAGATION_REQUIRES_NEW,-Exception</prop>
+            </props>
+        </property>
+    </bean>
+    
+	<!-- 拦截代理对象，为了给业务逻辑对象增加事务处理 -->
+	<!-- 
+	transactionAttributes属性可以设置事务处理的方式，事务隔离级别，是否只读三个属性，用逗号隔开
+	事务隔离级别各数据库系统不完全支持，一般不设置，用默认的即可
+	事务处理选项有如下几个：（前面2个常用）
+	PROPAGATION_REQUIRED － 需要事务处理。如果当前不存在事务环境，则创建一个
+	PROPAGATION_SUPPORTS － 如果当前存在事务环境，则作为其中的一部分。如果不存在，则按非事务方式执行
+	PROPAGATION_REQUIRES_NEW － 需要事务处理。并总是开启一个新事务。如果已经存在事务环境，则挂起之
+	PROPAGATION_MANDATORY － 执行到指定方法时，必须已经存在事务环境，否则出错
+	PROPAGATION_NEVER － 不支持事务操作，如果存在事务环境会出错
+	PROPAGATION_NOT_SUPPORTED － 不支持事务操作。如果存在事务，则挂起
+	-->
+    <bean id="optionService" class="com.kernel.service.screen.OptionService">
+    </bean>
+    <bean id="tableService" class="com.kernel.service.screen.TableService">
+    </bean>
+    <bean id="treeService" class="com.kernel.service.sys.TreeService">
+    </bean>
+    <bean id="formService" parent="proxyTemplate1">
+      <property name="target">
+          <bean class="com.kernel.service.screen.FormService">
+                <property name="formDao">
+                    <ref bean="FormDao"/>
+                </property>
+          </bean>
+      </property>
+    </bean>
+    
+    <bean id="bankOrgService" parent="proxyTemplate1">
+      <property name="target">
+          <bean class="com.pms.service.manager.BankOrgService">
+                <property name="bankOrgDao">
+                    <ref bean="BankOrgDao"/>
+                </property>
+          </bean>
+      </property>
+    </bean>
+    
+    <bean id="roleService" parent="proxyTemplate1">
+      <property name="target">
+          <bean class="com.pms.service.manager.RoleService">
+                <property name="roleDao">
+                    <ref bean="RoleDao"/>
+                </property>
+                <property name="userInfoDao">
+                    <ref bean="UserInfoDao"/>
+                </property>
+                <property name="sysRoleAuthDao">
+                    <ref bean="SysRoleAuthDao"/>
+                </property>
+          </bean>
+      </property>
+    </bean>
+    <bean id="userService" parent="proxyTemplate1">
+      <property name="target">
+          <bean class="com.pms.service.manager.UserService">
+                <property name="userInfoDao">
+                    <ref bean="UserInfoDao"/>
+                </property>
+                <property name="merchantDao">
+                    <ref bean="MerchantDao"/>
+                </property>
+          </bean>
+      </property>
+    </bean>
+    
+    <bean id="ywManagerService" parent="proxyTemplate1">
+      <property name="target">
+          <bean class="com.pms.service.manager.YwManagerService">
+                <property name="sysConfigDao">
+                    <ref bean="SysConfigDao"/>
+                </property>
+                <property name="sysDynamicMsgDao">
+                    <ref bean="SysDynamicMsgDao"/>
+                </property>
+          </bean>
+      </property>
+    </bean>
+    
+    <bean id="actorService" parent="proxyTemplate1">
+      <property name="target">
+          <bean class="com.pms.service.workflow.ActorService">
+                <property name="actorDao">
+                    <ref bean="ActorDao"/>
+                </property>
+          </bean>
+      </property>
+    </bean>
+    
+    
+    <bean id="authService" parent="proxyTemplate1">
+      <property name="target">
+          <bean class="com.pms.service.workflow.AuthService">
+                <property name="authDao">
+                    <ref bean="AuthDao"/>
+                </property>
+          </bean>
+      </property>
+    </bean>
+    
+    <bean id="funService" parent="proxyTemplate1">
+      <property name="target">
+          <bean class="com.pms.service.workflow.FunService">
+                <property name="funDao">
+                    <ref bean="FunDao"/>
+                </property>
+          </bean>
+      </property>
+    </bean>
+    
+    <bean id="flowService" parent="proxyTemplate1">
+      <property name="target">
+          <bean class="com.pms.service.workflow.FlowService">
+                <property name="flowDao">
+                    <ref bean="FlowDao"/>
+                </property>
+          </bean>
+      </property>
+    </bean>
+
+    <bean id="applyFlowService" parent="proxyTemplate1">
+      <property name="target">
+          <bean class="com.pms.service.workflow.ApplyFlowService">
+                <property name="applyFlowDao">
+                    <ref bean="ApplyFlowDao"/>
+                </property>
+                <property name="ctrlAuthOutgoDao">
+                    <ref bean="CtrlAuthOutgoDao"/>
+                </property>  
+                <property name="appBizTypeDao">
+                    <ref bean="AppBizTypeDao"/>
+                </property>    
+          </bean>
+      </property>
+    </bean>
+     
+    <bean id="functionService" parent="proxyTemplate1">
+      <property name="target">
+          <bean class="com.pms.service.workflow.FunctionService">
+              
+                <property name="actorDao">
+                    <ref bean="ActorDao"/>
+                </property>
+                <property name="funDao">
+                    <ref bean="FunDao"/>
+                </property>
+                <property name="userInfoDao">
+                    <ref bean="UserInfoDao"/>
+                </property>
+               <!--
+                <property name="authDao">
+                    <ref bean="AuthDao"/>
+                </property>
+                -->
+          </bean>
+      </property>
+    </bean>
+    
+    <bean id="outgoService" parent="proxyTemplate1">
+      <property name="target">
+          <bean class="com.pms.service.workflow.OutgoService">
+                <property name="ctrlAuthOutgoDao">
+                    <ref bean="CtrlAuthOutgoDao"/>
+                </property>   
+                <property name="sysNumDao">
+					<ref bean="SysNumDao" />
+				</property> 
+          </bean>
+      </property> 
+    </bean>
+  <!-- 角色授权 -->
+	<bean id="sysRoleAuthService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.manager.SysRoleAuthService">
+					<property name="sysRoleAuthDao">
+						<ref bean="SysRoleAuthDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+  
+	<bean id="sysControlService" parent="proxyTemplate1">
+		<property name="target">
+			<bean
+				class="com.pms.service.workflow.SysControlService">
+				<property name="sysControlDao">
+					<ref bean="SysControlDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	 <bean id="sysLogService" parent="proxyTemplate1">
+     <property name="target">
+          <bean class="com.kernel.service.sys.SysLogService">
+                <property name="sysLogDao">
+                    <ref bean="SysLogDao"/>
+                </property>
+          </bean>
+      </property>
+    </bean>
+	
+     <bean id="sequenceService" parent="proxyTemplate1">
+      <property name="target">
+          <bean class="com.pms.service.sequence.SequenceService">
+                 <property name="sequenceDao">
+                    <ref bean="SequenceDao"/>
+                </property>
+          </bean>
+      </property>
+    </bean>
+    
+    
+      <!-- 行内通知公告 -->
+	<bean id="innerNoticeService" parent="proxyTemplate1">
+		<property name="target">
+			<bean
+				class="com.pms.service.manager.InnerNoticeService">
+					<property name="innerNoticeDao">
+						<ref bean="InnerNoticeDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!--邮件处理部分-->
+	<bean id="deskBaseManagerService" parent="proxyTemplate1">
+      <property name="target">
+          <bean class="com.pms.service.manager.DeskBaseManagerService">
+                <property name="deskMailDao">
+                    <ref bean="DeskMailDao"/>
+                </property>
+				<property name="deskMailRecvDao">
+                    <ref bean="DeskMailRecvDao"/>
+                </property>
+                <property name="sequenceDao">
+                    <ref bean="SequenceDao"/>
+                </property>
+                 <property name="sysConfigDao">
+                    <ref bean="SysConfigDao"/>
+                </property>
+                 <property name="applyFlowDao">
+                    <ref bean="ApplyFlowDao"/>
+                </property>
+          </bean>
+      </property>
+    </bean>
+	<!-- 系统参数维护(POS) -->
+	<bean id="systemParameterService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.manager.SystemParameterService">
+					<property name="systemParameterDao">
+						<ref bean="SystemParameterDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 集团商户维护 -->
+	<bean id="shopRingService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopRingService">
+					<property name="shopRingDao">
+						<ref bean="ShopRingDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 商户信息维护 -->
+	<bean id="shopService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopService">
+					<property name="shopDao">
+						<ref bean="ShopDao" />
+					</property>
+					<property name="badShopDao">
+						<ref bean="BadShopDao" />
+					</property>
+					<property name="appMessageDao">
+						<ref bean="AppMessageDao" />
+					</property>
+					<property name="sysNumDao">
+						<ref bean="SysNumDao" />
+					</property>
+					<property name="deptDao">
+						<ref bean="DeptDao" />
+					</property>
+					<property name="shopTempDao">
+					    <ref bean="audiShopTempDao" />
+				    </property>
+					<property name="shopUpdateInfoDao">
+					    <ref bean="shopUpdateInfoDao" />
+				    </property>
+					<property name="shopFeeCodeDao">
+					    <ref bean="ShopFeeCodeDao" />
+				    </property>
+				    <property name="shopExtDao">
+					    <ref bean="ShopExtDao" />
+				    </property>
+			</bean>
+		</property>
+	</bean>
+	
+	
+	<!-- 商户折扣率 -->
+	<bean id="shopRateService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopRateService">
+					<property name="shopRateDao">
+						<ref bean="ShopRateDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 子商户审核信息维护 -->
+	<bean id="applyService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ApplyService">
+					<property name="applyDao">
+						<ref bean="ApplyDao" />
+					</property>
+					<property name="applyStepDao" ref="ApplyStepDao"/>
+					<property name="userInfoDao" ref="UserInfoDao"/>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 子商户信息维护 -->
+	<bean id="subMerchantService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.SubMerchantService">
+					<property name="subMerchantDao">
+						<ref bean="SubMerchantDao" />
+					</property>
+					<property name="applyDao">
+						<ref bean="ApplyDao" />
+					</property>
+					<property name="applyStepDao">
+						<ref bean="ApplyStepDao" />
+					</property>
+					<property name="subMerchantAudingDao">
+						<ref bean="SubMerchantAudingDao" />
+					</property>
+					<property name="merchantDao">
+						<ref bean="MerchantDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 集团商户 -->
+	<bean id="groupMerchantService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.manager.MerchantService">
+					<property name="merchantDao">
+						<ref bean="MerchantDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	
+	<!-- 子商户信息维护 -->
+	<bean id="subMerchantAudingService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.SubMerchantAudingService">
+					<property name="subMerchantAudingDao">
+						<ref bean="SubMerchantAudingDao" />
+					</property>
+					<property name="applyDao">
+						<ref bean="ApplyDao" />
+					</property>
+					<property name="subMerchantDao">
+						<ref bean="SubMerchantDao" />
+					</property>
+					<property name="merchantDao">
+						<ref bean="MerchantDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 终端信息 -->
+	<bean id="terminalService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.TerminalService">
+					<property name="terminalDao">
+						<ref bean="TerminalDao" />
+					</property>
+					<property name="terminalNormalService">
+						<ref bean="terminalNormalService"/>
+					</property>
+					<property name="terminalKeyService">
+						<ref bean="terminalKeyService"/>
+					</property>
+					<property name="dataConfigService">
+						<ref bean="dataConfigService" />
+					</property>
+					<property name="terminalExtDao">
+						<ref bean="TerminalExtDao" />
+					</property>
+					<property name="termExportCupsDao">
+						<ref bean="TermExportCupsDao"/>
+					</property>
+					<property name="shopService">
+						<ref bean="shopService"/>
+					</property>
+					<property name="keyBean" ref="keyBean" />
+					<property name="createKeyBean" ref="createKeyBean" />
+					<property name="createKeyFlag" value="${create.Key.Interface.Flag}" />
+			</bean>
+		</property>
+	</bean>
+	<!-- 终端参数模板 -->
+	<bean id="terminalParaService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.TerminalParaService">
+					<property name="terminalParaDao">
+						<ref bean="TerminalParaDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 安全参数模板 -->
+	<bean id="psamParaService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.PsamParaService">
+					<property name="psamParaDao">
+						<ref bean="PsamParaDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 卡表管理 -->
+	<bean id="cardsService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.CardsService">
+					<property name="cardsDao">
+						<ref bean="CardsDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 优惠地区管理 -->
+	<bean id="zonePreferenceService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ZonePreferenceService">
+					<property name="zonePreferenceDao">
+						<ref bean="ZonePreferenceDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 收费机构管理 -->
+	<bean id="unitInfoService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.UnitInfoService">
+					<property name="unitInfoDao">
+						<ref bean="UnitInfoDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 网点柜员信息 -->
+	<bean id="netOperService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.NetOperService">
+					<property name="netOperDao">
+						<ref bean="NetOperDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 我的收款人 -->
+	<bean id="myCustomerService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.MyCustomerService">
+					<property name="myCustomerDao">
+						<ref bean="MyCustomerDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>	
+	<!-- 手续费率管理 -->
+	<bean id="feeRateService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.FeeRateService">
+					<property name="feeRateDao">
+						<ref bean="FeeRateDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 交易限额管理 -->
+	<bean id="transactionLimitService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.TransactionLimitService">
+					<property name="transactionLimitDao">
+						<ref bean="TransactionLimitDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 市场资料管理 -->
+	<bean id="marketService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.MarketService">
+					<property name="marketDao">
+						<ref bean="MarketDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 未能识别卡管理 -->
+	<bean id="unknownCardService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.UnknownCardService">
+					<property name="unknownCardDao">
+						<ref bean="UnknownCardDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 绑定卡终端 -->
+	<bean id="registerCardService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.RegisterCardService">
+					<property name="registerCardDao">
+						<ref bean="RegisterCardDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- POS机构信息 -->
+	<bean id="deptService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.DeptService">
+					<property name="deptDao">
+						<ref bean="DeptDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 交易定义 -->
+	<bean id="transDefService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.TransDefService">
+					<property name="transDefDao">
+						<ref bean="TransDefDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 应用定义 -->
+	<bean id="appDefService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.AppDefService">
+					<property name="appDefDao">
+						<ref bean="AppDefDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 操作提示信息 -->
+	<bean id="operationInfoService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.OperationInfoService">
+					<property name="operationInfoDao">
+						<ref bean="OperationInfoDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 功能提示信息 -->
+	<bean id="functionInfoService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.FunctionInfoService">
+					<property name="functionInfoDao">
+						<ref bean="FunctionInfoDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 临时操作提示信息 -->
+	<bean id="operationTempService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.OperationTempService">
+					<property name="operationTempDao">
+						<ref bean="OperationTempDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 打印记录信息 -->
+	<bean id="printInfoService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.PrintInfoService">
+					<property name="printInfoDao">
+						<ref bean="PrintInfoDao" />
+					</property>
+					<property name="printDataDao">
+						<ref bean="PrintDataDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 打印凭条模板 -->
+	<bean id="printModuleService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.PrintModuleService">
+					<property name="printModuleDao">
+						<ref bean="PrintModuleDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 操作指令表 -->
+	<bean id="commandsService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.CommandsService">
+					<property name="commandsDao">
+						<ref bean="CommandsDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 动态菜单 -->
+	<bean id="dynamicMenuService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.DynamicMenuService">
+					<property name="dynamicMenuDao">
+						<ref bean="DynamicMenuDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 应用菜单定制 -->
+	<bean id="appMenuService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.AppMenuService">
+					<property name="appMenuDao">
+						<ref bean="AppMenuDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 支付账单信息 -->
+	<bean id="payListService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.PayListService">
+					<property name="payListDao">
+						<ref bean="PayListDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 账单大类 -->
+	<bean id="payClassService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.PayClassService">
+					<property name="payClassDao">
+						<ref bean="PayClassDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 账单小类 -->
+	<bean id="payTypeService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.PayTypeService">
+					<property name="payTypeDao">
+						<ref bean="PayTypeDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 交易指令 -->
+	<bean id="transCommandsService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.TransCommandsService">
+					<property name="transCommandsDao">
+						<ref bean="TransCommandsDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 错误提示信息 -->
+	<bean id="errorInfoService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.ErrorInfoService">
+					<property name="errorInfoDao">
+						<ref bean="ErrorInfoDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 交易路由 -->
+	<bean id="moduleService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.ModuleService">
+					<property name="moduleDao">
+						<ref bean="ModuleDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 弹出窗口 -->
+	<bean id="showDialogService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.dialog.ShowDialogService">
+					<property name="showDialogDao">
+						<ref bean="ShowDialogDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 短信通知 -->
+	<bean id="shortMessageService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.ShortMessageService">
+					<property name="shortMessageDao">
+						<ref bean="ShortMessageDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 广告信息 -->
+	<bean id="firstPageService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.FirstPageService">
+					<property name="firstPageDao">
+						<ref bean="FirstPageDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 密钥表 -->
+	<bean id="posKeyService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.epay.PosKeyService">
+					<property name="posKeyDao">
+						<ref bean="PosKeyDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 品牌管理 -->
+	<bean id="brandService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.BrandService">
+					<property name="brandDao">
+						<ref bean="BrandDao" />
+					</property>
+					<property name="supplierDao">
+						<ref bean="SupplierDao" />
+					</property>
+					<property name="terminalNormalDao">
+						<ref bean="TerminalNormalDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 供货商管理 -->
+	<bean id="supplierService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.SupplierService">
+					<property name="supplierDao">
+						<ref bean="SupplierDao" />
+					</property>
+					<property name="brandDao">
+						<ref bean="BrandDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- zkl维护厂商管理 -->
+	<bean id="maintainService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.MaintainService">
+					<property name="maintainDao">
+						<ref bean="MaintainDao" />
+					</property>
+					<property name="terminalNormalDao">
+						<ref bean="TerminalNormalDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 商户组别表 -->
+	<bean id="shopGroupService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopGroupService">
+					<property name="shopGroupDao">
+						<ref bean="ShopGroupDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 商户类别(MCC)对照表 -->
+	<bean id="shopKindService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopKindService">
+					<property name="shopKindDao">
+						<ref bean="ShopKindDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 商户交易等级代码表 -->
+	<bean id="shopTransLevelService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopTransLevelService">
+					<property name="shopTransLevelDao">
+						<ref bean="ShopTransLevelDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 手续费参数表(普通POS) -->
+	<bean id="feeParaService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.FeeParaService">
+					<property name="feeParaDao">
+						<ref bean="FeeParaDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 集团商户表 -->
+	<bean id="groupShopService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.GroupShopService">
+					<property name="groupShopDao">
+						<ref bean="GroupShopDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 文档资料表 -->
+	<bean id="cusDocService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.CusDocService">
+					<property name="cusDocDao">
+						<ref bean="CusDocDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 商户审批表 -->
+	<bean id="appMessageService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.AppMessageService">
+					<property name="appMessageDao">
+						<ref bean="AppMessageDao" />
+					</property>
+					<property name="sysNumDao">
+						<ref bean="SysNumDao" />
+					</property>
+					<property name="audiHistoryShopDao">
+						<ref bean="AudiHistoryShopDao" />
+					</property>
+					<property name="shopTempDao">
+						<ref bean="audiShopTempDao"/>
+					</property>
+					<property name="shopExtDao">
+						<ref bean="ShopExtDao"/>
+					</property>
+					<property name="userInfoDao">
+						<ref bean="UserInfoDao"/>
+					</property>
+					<property name="shopService" ref="shopService" />
+					<property name="terminalTempService">
+						<ref bean="terminalTempService"/>
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 风险预警指标 -->
+	<bean id="alertOptionService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.AlertOptionService">
+					<property name="alertOptionDao">
+						<ref bean="AlertOptionDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 预警商户登记处理表 -->
+	<bean id="alertShopService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.AlertShopService">
+					<property name="alertShopDao">
+						<ref bean="AlertShopDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 不良商户登记 -->
+	<bean id="badShopService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.BadShopService">
+					<property name="badShopDao">
+						<ref bean="BadShopDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 普通_终端信息表 -->
+	<bean id="terminalNormalService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.TerminalNormalService">
+					<property name="terminalNormalDao">
+						<ref bean="TerminalNormalDao" />
+					</property>
+					<property name="audiHistoryDao">
+						<ref bean="AudiHistoryDao"/>
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="audiShopTempService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.auditing.AuditShopTemp">
+				<property name="daoTempDao">
+					<ref bean="audiShopTempDao"/>
+				</property>
+				<property name="shopDao">
+					<ref bean="ShopDao"/>
+				</property>
+				<property name="appMessageService">
+					<ref bean="appMessageService"/>
+				</property>
+				<property name="shopFeeParaDao">
+					<ref bean="ShopFeeParaDao"/>
+				</property>
+				<property name="groupShopDao">
+					<ref bean="GroupShopDao"/>
+				</property>
+				<property name="shopExtService">
+					<ref bean="shopExtService" />
+				</property>
+				<property name="terminalTempService">
+					<ref bean="terminalTempService" />
+				</property>
+				<property name="shopUpdateInfoDao">
+					<ref bean="shopUpdateInfoDao" />
+				</property>
+				<property name="qrCodeBusinessService">
+					<ref bean="qrCodeBusinessService" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="audiGroupShopTempService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.auditing.AuditGroupShopTemp">
+				<property name="daoGroupShopDao">
+					<ref bean="GroupShopDao"/>
+				</property>
+				<property name="groupShopTempDao">
+					<ref bean="audiGroupShopTempDao"/>
+				</property>
+				<property name="appMessageService">
+					<ref bean="appMessageService"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="institutionService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.manager.InstitutionService">
+				<property name="institutionDao">
+					<ref bean="InstitutionDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="historylsService"  parent="proxyTemplate1">
+		<property name="target">
+			<bean class='com.pms.service.epay.HistoryLsService'>
+				<property name="historyLsDao">
+					<ref bean="historylsDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 商户手续费 -->
+	<bean id="shopFeeParaService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopFeeParaService">
+					<property name="shopFeeParaDao">
+						<ref bean="ShopFeeParaDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 第三方服务公司 -->
+	<bean id="thirdPartyCompaniesService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ThirdPartyCompaniesService">
+					<property name="thirdPartyCompaniesDao">
+						<ref bean="ThirdPartyCompaniesDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 商户终端资料参数 -->
+	<bean id="dataConfigService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.DataConfigService">
+					<property name="dataConfigDao">
+						<ref bean="DataConfigDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 终端审批 -->
+	<bean id="audiHistoryService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.AudiHistoryService">
+					<property name="audiHistoryDao">
+						<ref bean="AudiHistoryDao" />
+					</property>
+					<property name="terminalNormalDao">
+						<ref bean="TerminalNormalDao"/>
+					</property>
+					<property name="termExportCupsDao">
+						<ref bean="TermExportCupsDao"/>
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!--
+	<bean id="terminalAuditService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.TerminalAuditService">
+					<property name="terminalDao">
+						<ref bean="TerminalDao"/>
+					</property>
+			</bean>
+		</property>
+	</bean>
+	-->
+	<bean id="terminalKeyService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.TerminalKeyService">
+				<property name="terminalKeyDao">
+					<ref bean="terminalKeyDao"/>
+				</property>
+				<property name="keyBean" ref="keyBean" />
+				<property name="createKeyBean" ref="createKeyBean" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 商户信息扩展 -->
+	<bean id="shopExtService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopExtService">
+					<property name="shopExtDao">
+						<ref bean="ShopExtDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 终端信息扩展 -->
+	<bean id="terminalExtService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.TerminalExtService">
+					<property name="terminalExtDao">
+						<ref bean="TerminalExtDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 地区编号 -->
+	<bean id="zoneDictionaryService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ZoneDictionaryService">
+					<property name="zoneDictionaryDao">
+						<ref bean="ZoneDictionaryDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 商户外卡 -->
+	<bean id="shopCardIntService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopCardIntService">
+					<property name="shopCardIntDao">
+						<ref bean="ShopCardIntDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 终端审核 -->
+	<bean id="appTermMesageService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.AppTermMesageService">
+					<property name="appTermMesageDao">
+						<ref bean="AppTermMesageDao" />
+					</property>
+					<property name="audiHistoryDao">
+						<ref bean="AudiHistoryDao" />
+					</property>
+					<property name="sysNumDao">
+						<ref bean="SysNumDao"/>
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="terminalAuditService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.TerminalAuditService">
+					<property name="terminalAuditDao">
+						<ref bean="terminalAuditDao" />
+					</property>
+					<property name="terminalNormalAuditDao">
+						<ref bean="terminalNormalAuditDao" />
+					</property>
+					<property name="appTermMesageService">
+						<ref bean="appTermMesageService"/>
+					</property>
+					<property name="terminalDao">
+						<ref bean="TerminalDao"/>
+					</property>
+					<property name="terminalNormalDao">
+						<ref bean="TerminalNormalDao" />
+					</property>
+					<property name="terminalExtDao">
+						<ref bean="TerminalExtDao"/>
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="appTermMessageAudit" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.AppTermMessageAudit" >
+					<property name="appTermMesageService">
+						<ref bean="appTermMesageService" />
+					</property>
+					<property name="terminalAuditService">
+						<ref bean="terminalAuditService" />
+					</property>
+					<property name="terminalService">
+						<ref bean="terminalService" />
+					</property>
+					<property name="terminalExtDao">
+						<ref bean="TerminalExtDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 多列参数维护 -->
+	<bean id="sysDataConfigService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.SysDataConfigService">
+					<property name="sysDataConfigDao">
+						<ref bean="SysDataConfigDao" />
+					</property>
+					<property name="sysDataOptionsDao">
+						<ref bean="SysDataOptionsDao"/>
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 多列参数维护 -->
+	<bean id="sysDataOptionsService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.SysDataOptionsService">
+					<property name="sysDataOptionsDao">
+						<ref bean="SysDataOptionsDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- MCC和分润算法关联 -->
+	<bean id="mccFeeRelevanceService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.MccFeeRelevanceService">
+					<property name="mccFeeRelevanceDao">
+						<ref bean="MccFeeRelevanceDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 批量审核终端 -->
+	<bean id="bathTerminalAuditService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.BathTerminalAuditService">
+					<property name="bathTerminalAudiDao">
+						<ref bean="BathTerminalAudiDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 蔬菜卡 -->
+	<bean id="vegShopDao" class="com.pms.dao.sqlmapdao.veg.VegShopSqlMapDao">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClientYw" />
+		</property>
+	</bean>
+	<bean id="vegShopService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.veg.VegShopService">
+				<property name="vegShopDao">
+					<ref bean="vegShopDao" />
+				</property>
+				<property name="shopFeeParaDao">
+					<ref bean="ShopFeeParaDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="vegTerminalService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.VegTerminalService">
+					<property name="terminalNormalService">
+						<ref bean="terminalNormalService" />
+					</property>
+					<property name="terminalKeyService">
+						<ref bean="terminalKeyService"/>
+					</property>
+					<property name="terminalDao">
+						<ref bean="TerminalDao" />
+					</property>
+					<property name="termExportCupsDao">
+						<ref bean="TermExportCupsDao" />
+					</property>
+					<property name="keyBean" ref="keyBean" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="audiHistoryShopService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.AudiHistoryShopService">
+					<property name="audiHistoryShopDao">
+						<ref bean="AudiHistoryShopDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 发卡行分润算法代码 -->
+	<bean id="issuerfeeaclService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.IssuerfeeaclService">
+					<property name="issuerfeeaclDao">
+						<ref bean="IssuerfeeaclDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 商户手续费代码对应 -->
+	<bean id="shopFeeCodeService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopFeeCodeService">
+					<property name="shopFeeCodeDao">
+						<ref bean="ShopFeeCodeDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 日汇总 -->
+	<bean id="exportExcleDayService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ExportExcleDayService">
+					<property name="exportExcleDayDao">
+						<ref bean="exportExcleDayDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 刷卡返款日报表 -->
+	<bean id="exportExcleReturnFundDayService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ExportExcleReturnFundDayService">
+					<property name="exportExcleReturnFundDayDao">
+						<ref bean="exportExcleReturnFundDayDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+		<!-- 未返款明细表 -->
+	<bean id="exportExcleNoReturnFundDetailService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ExportExcleReturnFundDayService">
+					<property name="exportExcleReturnFundDayDao">
+						<ref bean="exportExcleReturnFundDayDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 系统运营 -->
+	<bean id="sysDateApplyService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.SysDateApplyService">
+					<property name="sysDateApplyDao">
+						<ref bean="sysDateApplyDao" />
+					</property>
+					<property name="applyService">
+						<ref bean="applyService" />
+					</property>
+					<property name="sysWorkdateService" ref="sysWorkdateService" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 分润设置 -->
+	<bean id="feeAssingService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.FeeAssingService">
+					<property name="feeAssingDao">
+						<ref bean="feeAssingDao" />
+					</property>
+					<property name="applyDao">
+						<ref bean="ApplyDao" />
+					</property>
+					<property name="applyStepDao">
+						<ref bean="ApplyStepDao" />
+					</property>
+					<property name="merchantDao">
+						<ref bean="MerchantDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 营运时间维护类 -->
+	<bean id="sysWorkdateService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.SysWorkdateService">
+					<property name="sysWorkdateDao">
+						<ref bean="sysWorkdateDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 鼎好集团商户 -->
+	<bean id="merchantService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.GroupMerchantService">
+					<property name="merchantDao">
+						<ref bean="MerchantDao" />
+					</property>
+					<property name="applyDao">
+						<ref bean="ApplyDao" />
+					</property>
+					<property name="applyStepDao">
+						<ref bean="ApplyStepDao" />
+					</property>
+					<property name="feeAssingDao">
+						<ref bean="feeAssingDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	
+		<!-- 商户级别 -->
+	<bean id="subMerchantLevelService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.SubMerchantLevelService">
+					<property name="subMerchantLevelDao">
+						<ref bean="subMerchantLevelDao" />
+					</property>
+					<property name="applyDao">
+						<ref bean="ApplyDao" />
+					</property>
+					<property name="applyStepDao">
+						<ref bean="ApplyStepDao" />
+					</property>
+					<property name="feeAssingDao">
+						<ref bean="feeAssingDao" />
+					</property>
+					<property name="dataSource">
+						<ref bean="dataSource" />
+					</property>
+					<property name="coreFtpInfo">
+						<ref bean="coreFtpConfigInfo" />
+					</property>
+					<property name="merchantService">
+						<ref bean="merchantService" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 子电子结算费率 -->
+	<bean id="elcBillRateService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ElcBillRateService">
+					<property name="elcBillRateDao">
+						<ref bean="elcBillRateDao" />
+					</property>
+					<property name="applyDao">
+						<ref bean="ApplyDao" />
+					</property>
+					<property name="applyStepDao">
+						<ref bean="ApplyStepDao" />
+					</property>
+					<property name="feeAssingDao">
+						<ref bean="feeAssingDao" />
+					</property>
+					<property name="dataSource">
+						<ref bean="dataSource" />
+					</property>
+					<property name="coreFtpInfo">
+						<ref bean="coreFtpConfigInfo" />
+					</property>
+					<property name="merchantService">
+						<ref bean="merchantService" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="nxySettleService" class="com.pms.syncore.executer.NxySettleService">
+		<property name="sysCfgParaDao" ref="sysCfgParaDao" />
+	</bean>
+	
+	
+    <!--分期费率  zhangkailiang add-->
+	<bean id="fenqiParaProductService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.FenqiParaProductService">
+				<property name="fenqiParaProductDao">
+					<ref bean="fenqiParaProductDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+			
+    <!--商户黑名单 zhangkailiang add -->
+	<bean id="shopBlacklistService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopBlacklistService">
+				<property name="shopBlacklistDao">
+					<ref bean="shopBlacklistDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- POS分期信用卡对账  zhouya  add -->
+	<bean id="creditCardTranRecService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.batch.service.CreditCardTranRecService">
+				<property name="creditCardTranRecDao">
+					<ref bean="creditCardTranRecDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 附件  zhouya  add -->
+	<bean id="commAttachService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.CommAttachService">
+				<property name="commAttachDao">
+					<ref bean="commAttachDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 搜索  zhouya  add -->
+	<bean id="autoSearchService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.AutoSearchService">
+				<property name="autoSearchDao">
+					<ref bean="autoSearchDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 集团信息维护  zhangKailiang -->
+	<bean id="groupsService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.GroupsService">
+				<property name="groupsDao">
+					<ref bean="groupsDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 集团信息与商户对应关系维护  zhangKailiang -->
+	<bean id="groupsToShopService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.GroupsToShopService">
+				<property name="groupsToShopDao">
+					<ref bean="groupsToShopDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 银联终端与小帮手终端关系维护  zhangKailiang-->
+	<bean id="terminalCorrelateService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.TerminalCorrelateService">
+				<property name="terminalCorrelateDao">
+					<ref bean="terminalCorrelateDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 配置信息维护 zhangKailiang -->
+	<bean id="translationService" parent="proxyTemplate1">
+	    <property name="target">
+			<bean class="com.pms.service.posp.TranslationService">
+				<property name="translationDao">
+					<ref bean="translationDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 终端临时表 -->
+	<bean id="TempService" class="com.pms.service.posp.TerminalTempService">
+				<property name="terminalTempDao">
+					<ref bean="terminalTempDao" />
+				</property>
+				<property name="shopDao">
+					<ref bean="ShopDao" />
+				</property>
+				<property name="shopTempDao">
+					<ref bean="audiShopTempDao" />
+				</property>
+				<property name="operateRecordDao">
+					<ref bean="terminalOperateRecordDao" />
+				</property>
+				<property name="terminalService">
+					<ref bean="terminalService"/>
+			    </property>
+			    <property name="terminalNormalService">
+						<ref bean="terminalNormalService" />
+			    </property>
+			    <property name="termExportCupsDao">
+						<ref bean="TermExportCupsDao" />
+			    </property>
+			    <property name="maintainDao">
+						<ref bean="MaintainDao" />
+			    </property>
+			    <property name="brandDao">
+				         <ref bean="BrandDao" />
+	            </property>
+			    <property name="shopService">
+				         <ref bean="shopService" />
+	            </property>
+			    <property name="commAttachDao">
+				         <ref bean="commAttachDao" />
+	            </property>
+	            <property name="dealWithTermBill">
+				         <ref bean="dealWithTermBill" />
+	            </property>
+	</bean>
+	<bean id="terminalTempService" parent="proxyTemplate1">
+	    <property name="target">
+			<ref bean="TempService" />
+		</property>
+	</bean>
+	
+	<!-- 终端任务 -->
+	<bean id="TaskService" class="com.pms.service.posp.TerminalTaskService" parent="TempService">
+	</bean>
+	<bean id="terminalTaskService"  parent="proxyTemplate1">
+	    <property name="target">
+			<ref bean="TaskService" />
+		</property>
+	</bean>
+	
+	<!-- 分配终端品牌和和型号  申领终端任务 -->
+	<bean id="SortService" class="com.pms.service.posp.TerminalSortService" parent="TempService">
+	     <property name="posInspectDao">
+	                <ref bean="posInspectDao" />
+	     </property>
+	     <property name="handleVerifyService">
+	                <ref bean="taskHandleVerifyService" />
+	     </property>
+	     <property name="insertEquipHistoryFlowNote">
+	                <ref bean="insertEquipHistoryFlowNote" />
+	     </property>	     
+  		 <property name="termBillDao">
+			<ref bean="termBillDao"/>
+		</property>	     	     
+	</bean>
+	<bean id="terminalSortService" parent="proxyTemplate1">
+	    <property name="target">
+			<ref bean="SortService" />
+		</property>
+	</bean>
+	<bean id="insertEquipHistoryFlowNote" parent="proxyTemplate1">
+	    <property name="target">
+			<bean class="com.pms.service.posp.InsertEquipHistoryFlowNote">
+				<property name="posRunningDao">
+					<ref bean="PosRunningDao" />
+				</property>
+				<property name="maintainWorkAgingDao">
+					<ref bean="maintainWorkAgingDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="TerminalSortUploadService" class="com.pms.service.posp.TerminalSortUploadService" parent="SortService">
+	</bean>
+	<bean id="terminalSortUploadService"  parent="proxyTemplate1">
+	    <property name="target">
+			<ref bean="TerminalSortUploadService" />
+		</property>
+	</bean>
+	<!-- 分配终端维护商 -->
+	<bean id="WaitService" class="com.pms.service.posp.TerminalWaitService" parent="TempService">
+	</bean>
+	<bean id="terminalWaitService"  parent="proxyTemplate1">
+	    <property name="target">
+			<ref bean="WaitService" />
+		</property>
+	</bean>
+	<!-- 终端维护 -->
+	<bean id="ViewService" class="com.pms.service.posp.TerminalViewService" parent="TempService">
+				 <property name="appMessageService">
+					<ref bean="appMessageService" />
+	             </property>
+				 <property name="terminalStrategyDao">
+					<ref bean="terminalStrategyDao" />
+	             </property>
+	</bean>
+	<bean id="terminalViewService"  parent="proxyTemplate1">
+	    <property name="target">
+			<ref bean="ViewService" />
+		</property>
+	</bean>
+	<!-- 终端维护 -->
+	<bean id="MaintainService" class="com.pms.service.posp.TerminalMaintainService" parent="TempService">
+	</bean>
+	<bean id="terminalMaintainService"  parent="proxyTemplate1">
+	    <property name="target">
+			<ref bean="MaintainService" />
+		</property>
+	</bean>
+	<!-- 终端操作记录查询 -->
+	<bean id="terminalOperateRecordService"  parent="proxyTemplate1">
+	    <property name="target">
+			<bean class="com.pms.service.posp.TerminalOperateRecordService">
+				<property name="operateRecordDao">
+					<ref bean="terminalOperateRecordDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	
+	<!-- 用户权限zhangKailiang -->
+	<bean id="sysAuthorityService" parent="proxyTemplate1">
+	    <property name="target">
+			<bean class="com.pms.service.posp.SysAuthorityService">
+				<property name="sysAuthorityDao">
+					<ref bean="sysAuthorityDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 终端策略维护zhangKailiang -->
+	<bean id="terminalStrategyService" parent="proxyTemplate1">
+	    <property name="target">
+			<bean class="com.pms.service.posp.TerminalStrategyService">
+				<property name="terminalStrategyMaintainDao">
+					<ref bean="terminalStrategyMaintainDao" />
+				</property>
+				<property name="supplierDao">
+					<ref bean="SupplierDao" />
+				</property>
+				<property name="brandDao">
+					<ref bean="BrandDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 终端策略更新状态查询zhangKailiang -->
+	<bean id="tmspTranRecService" parent="proxyTemplate1">
+	    <property name="target">
+			<bean class="com.pms.service.posp.TmspTranRecService">
+				<property name="tmspTranRecDao">
+					<ref bean="tmspTranRecDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	    <!-- 终端交易统计  yaohaibiao-->
+	<bean id="tearmTransSumServiceTwo" parent="proxyTemplate1">
+	    <property name="target">
+			<bean class="com.pms.service.posp.TearmTransSumServiceTwo">
+				<property name="tearmTransSumDaoTwo">
+					<ref bean="tearmTransSumDaoTwo" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+    <!-- 终端交易统计详细查看 yaohaibiao-->
+	<bean id="tearmTransSumService" parent="proxyTemplate1">
+	    <property name="target">
+			<bean class="com.pms.service.posp.TearmTransSumService">
+				<property name="tearmTransSumDao">
+					<ref bean="tearmTransSumDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!--商户交易统计 yaohaibiao-->
+	<bean id="shopTransSumService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopTransSumService">
+				<property name="shopTransSumDao">
+					<ref bean="ShopTransSumDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>  
+    <!-- 商户交易统计详细查看 yaohaibiao -->
+	<bean id="shopTransSumDetailService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopTransSumService">
+  				<property name="shopTransSumDao">
+					<ref bean="ShopTransSumDetailDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean> 
+	<!-- POS维护商巡检 zhangKailiang-->
+	<bean id="posInspectService" parent="proxyTemplate1">
+	    <property name="target">
+	        <bean class="com.pms.service.posp.PosInspectService">
+	            <property name="posInspectDao">
+	                <ref bean="posInspectDao" />
+	            </property>
+	            <property name="commAttachDao">
+					<ref bean="commAttachDao" />
+				</property>
+				<property name="maintainDao">
+						<ref bean="MaintainDao" />
+			    </property>
+	        </bean>
+	    </property>
+	</bean>
+	
+	<bean id="pospTranRecService" parent="proxyTemplate1">
+	    <property name="target">
+	        <bean class="com.pms.service.posp.PospTranRecService">
+	            <property name="pospTranRecDao">
+	                <ref bean="pospTranRecDao" />
+	            </property>
+	        </bean>
+	    </property>
+	</bean>
+
+	<bean id="shopWhiteListService" parent="proxyTemplate1">
+	    <property name="target">
+	        <bean class="com.pms.service.posp.ShopWhiteListService">
+	            <property name="shopWhiteListDao">
+	                <ref bean="shopWhiteListDao" />
+	            </property>
+	        </bean>
+	    </property>
+	</bean>
+	<!-- 自收单集团子商户管理 -->
+	<bean id="subclassOfBlocShopService" parent="proxyTemplate1">
+	    <property name="target">
+	        <bean class="com.pms.service.posp.SubclassOfBlocShopService">
+	            <property name="subclassOfBlocShopDao">
+	                <ref bean="subclassOfBlocShopDao" />
+	            </property>
+	        </bean>
+	    </property>
+	</bean>	
+    <!-- 工单信息  yaohaibiao -->
+	<bean id="termBillService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.TermBillService">
+  				<property name="termBillDao">
+					<ref bean="termBillDao"/>
+				</property>
+	            <property name="dealWithTermBill">
+				         <ref bean="dealWithTermBill" />
+	            </property>
+	            <property name="handleVerifyService">
+	                   <ref bean="taskHandleVerifyService" />
+	            </property>
+	            <property name="terminalTempService">
+	                   <ref bean="terminalTempService" />
+	            </property>
+	            <property name="operateRecordDao">
+	                   <ref bean="terminalOperateRecordDao" />
+	            </property>
+			     <property name="insertEquipHistoryFlowNote">
+			                <ref bean="insertEquipHistoryFlowNote" />
+			     </property>
+			     <property name="terminalTempDao">
+			                <ref bean="terminalTempDao" />
+			     </property>			     	            
+			</bean>
+		</property>
+	</bean>
+	<bean id="dealWithTermBill" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.DealWithTermBill">
+  				<property name="termBillDao">
+					<ref bean="termBillDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 任务流程维护 -->
+	<bean id="taskHandleService" parent="proxyTemplate1">
+	    <property name="target">
+	        <bean class="com.pms.service.posp.TaskHandleService">
+	            <property name="taskHandleDao">
+	                <ref bean="taskHandleDao" />
+	            </property>
+	        </bean>
+	    </property>
+	</bean>
+	<!-- 任务校验 -->
+	<bean id="taskVerifyService" parent="proxyTemplate1">
+	    <property name="target">
+	        <bean class="com.pms.service.posp.TaskVerifyService">
+	            <property name="taskVerifyDao">
+	                <ref bean="taskVerifyDao" />
+	            </property>
+	        </bean>
+	    </property>
+	</bean>
+	<bean id="taskHandleVerifyService" parent="proxyTemplate1">
+	    <property name="target">
+	        <bean class="com.pms.service.posp.TaskHandleVerifyService">
+	            <property name="taskVerifyDao">
+	                <ref bean="taskVerifyDao" />
+	            </property>
+	             <property name="taskHandleDao">
+	                <ref bean="taskHandleDao" />
+	            </property>
+	        </bean>
+	    </property>
+	</bean>
+	
+    <!-- 待灌装任务报表 -->
+	<bean id="taskTableService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.TaskTableService">
+  				<property name="taskReportDao">
+					<ref bean="taskReportDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+    <!-- 装机任务报表 -->
+	<bean id="taskInstallFormsService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.TaskInstallFormsService">
+  				<property name="taskInstallFormsDao">
+					<ref bean="taskInstallFormsDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+    <!-- 撤机任务报表 -->
+	<bean id="taskRecallFormsService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.TaskRecallFormsService">
+  				<property name="taskRecallFormsDao">
+					<ref bean="taskRecallFormsDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<!-- 机具设备信息查询 -->
+	<bean id="posInfoService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.PosInfoService">
+					<property name="posInfoDao">
+						<ref bean="PosInfoDao" />
+					</property>
+					<property name="posRunningDao">
+						<ref bean="PosRunningDao" />
+					</property>
+					<property name="posAlterSqlMapDao">
+						<ref bean="posAlterSqlMapDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>	
+	<!-- 机具申领 -->
+	<bean id="posApplyService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.PosApplyService">
+					<property name="posApplyDao">
+						<ref bean="PosApplyDao" />
+					</property>
+					<property name="posRunningDao">
+						<ref bean="PosRunningDao" />
+					</property>
+					<property name="brandDao">
+						<ref bean="BrandDao" />
+					</property>
+					<property name="posAlterSqlMapDao">
+						<ref bean="posAlterSqlMapDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>	
+	<!-- 机具送修及返还 -->
+	<bean id="posFixService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.PosFixService">
+					<property name="posFixDao">
+						<ref bean="PosFixDao" />
+					</property>
+					<property name="posRunningDao">
+						<ref bean="PosRunningDao" />
+					</property>
+					<property name="fixFirmDao">
+						<ref bean="FixFirmDao" />
+					</property>
+					<property name="posApplyDao">
+						<ref bean="PosApplyDao" />
+					</property>	
+			</bean>
+		</property>
+	</bean>	
+	
+	<!-- 机具归还 -->
+	<bean id="posReturnService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.PosReturnService">
+					<property name="posReturnDao">
+						<ref bean="PosReturnDao" />
+					</property>
+					<property name="posRunningDao">
+						<ref bean="PosRunningDao" />
+					</property>
+					<property name="posFixDao">
+						<ref bean="PosFixDao" />
+					</property>
+					<property name="posApplyDao">
+						<ref bean="PosApplyDao" />
+					</property>
+					<property name="fixFirmDao">
+						<ref bean="FixFirmDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>	
+	<!-- 机具领用归还明细查询-->
+	<bean id="posUseAndReturnService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.PosUseAndReturnService">
+					<property name="posUseAndReturnDao">
+						<ref bean="PosUseAndReturnDao" />
+					</property>
+					<property name="supplierDao">
+						<ref bean="SupplierDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>	
+	<!-- 机具历史流转记录插入-->
+	<bean id="posRunningService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.PosRunningService">
+					<property name="posRunningDao">
+						<ref bean="PosRunningDao" />
+					</property>
+					<property name="supplierDao">
+						<ref bean="SupplierDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>		
+	<!-- 任务全量报表 -->
+	<bean id="taskReportDetailsService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.TaskReportDetailsService">
+  				<property name="taskReportDetailsDao">
+					<ref bean="taskReportDetailsDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 待撤机任务报表 -->
+	<bean id="staytaskRecallFormsService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.StayTaskRecallFormsService">
+  				<property name="taskRecallFormsDao">
+					<ref bean="taskRecallFormsDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 终端资料管理导出 -->
+	<bean id="terminalDataManageService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.TerminalDataManageService">
+  				<property name="terminalDataManageDao">
+					<ref bean="terminalDataManageDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 省市区县三级联动-->
+	<bean id="districtDynamicService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.DistrictDynamicService">
+  				<property name="districtDynamicDao">
+					<ref bean="districtDynamicDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 结算账号校验 -->
+	<bean id="shopMsgVerifyService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopMsgVerifyService"></bean>
+		</property>
+	</bean>
+	<!-- 城市参数维护-->
+	<bean id="addressDistrictService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.AddressDistrictService">
+				<property name="addressDistrictDao">
+					<ref bean="addressDistrictDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 终端密钥管理-->
+	<bean id="terminalSecretKeyService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.TerminalSecretKeyService">
+				<property name="terminalSecretKeyDao">
+					<ref bean="terminalSecretKeyDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<!-- 机具送修及归还查询 -->
+	<bean id="repairRevertService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.RepairRevertService">
+					<property name="repairRevertDao">
+						<ref bean="RepairRevertDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 机具维修厂商管理-->
+	<bean id="fixFirmService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.FixFirmService">
+					<property name="fixFirmDao">
+						<ref bean="FixFirmDao" />
+					</property>
+			</bean>
+		</property>
+	</bean>	
+	<!-- 机具丢失查询-->
+	<bean id="loseQueryService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.LoseQueryService">
+				<property name="loseQueryDao">
+					<ref bean="LoseQueryDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<!-- 手工入库-->
+	<bean id="manualDisposeService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ManualDisposeService">
+				<property name="manualDisposeDao">
+					<ref bean="ManualDisposeDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<!-- 机具领用及返还查询
+	<bean id="revertReportService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.RevertReportService">
+				<property name="revertReportDao">
+					<ref bean="RevertReportDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	-->
+	<!-- 维保商出库明细查询-->
+	<bean id="maintainFirmStockService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.MaintainFirmStockService">
+				<property name="maintainFirmStockDao">
+					<ref bean="MaintainFirmStockDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<!-- 维保商入库明细查询-->
+	<bean id="maintainAccessService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.MaintainAccessService">
+				<property name="maintainAccessDao">
+					<ref bean="MaintainAccessDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<!-- 厂商送修及修复明细查询-->
+	<bean id="fixFirmRestoreService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.FixFirmRestoreService">
+				<property name="fixFirmRestoreDao">
+					<ref bean="FixFirmRestoreDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<!-- 运维暂管明细查询-->
+	<bean id="transientHandleService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.TransientHandleService">
+				<property name="transientHandleDao">
+					<ref bean="TransientHandleDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<!-- 运维暂管机具查询 -->
+	<bean id="posManageTempService" parent="proxyTemplate1">
+	<property name="target">
+		<bean class="com.pms.service.posp.PosManageTempService">
+			<property name="posManageTempDao">
+				<ref bean="posManageTempDao"></ref>
+			</property>
+		</bean>
+	</property>
+	</bean>	
+	<!-- 设备变更查询 -->
+	<bean id="posAlterByHandService" parent="proxyTemplate1">
+	<property name="target">
+		<bean class="com.pms.service.posp.PosAlterByHandService">
+			<property name="posAlterSqlMapDao">
+				<ref bean="posAlterSqlMapDao"></ref>
+			</property>
+		</bean>
+	</property>
+	</bean>
+	<bean id="posAlterService" parent="proxyTemplate1">
+	<property name="target">
+		<bean class="com.pms.service.posp.PosAlterService">
+			<property name="posAlterSqlMapDao">
+				<ref bean="posAlterSqlMapDao"></ref>
+			</property>
+		</bean>
+	</property>
+	</bean>	
+	<!-- 丢失机具查询报表 -->
+	<bean id="equipLoseRepFormsService" parent="proxyTemplate1">
+	<property name="target">
+		<bean class="com.pms.service.posp.EquipLoseRepFormsService">
+			<property name="equipLoseRepFormsSqlMapDao">
+				<ref bean="equipLoseRepFormsSqlMapDao"></ref>
+			</property>
+		</bean>
+	</property>
+	</bean>	
+	<!-- 手工入库处理日月报表-->
+	<bean id="eqPutInStorageRepFormsService" parent="proxyTemplate1">
+	<property name="target">
+		<bean class="com.pms.service.posp.EqPutInStorageRepFormsService">
+			<property name="eqPutInStorageRepFormSqlMapDao">
+				<ref bean="eqPutInStorageRepFormSqlMapDao"></ref>
+			</property>
+		</bean>
+	</property>
+	</bean>
+	<!-- 在用机具布放汇总统计报表-->
+	<bean id="equipInUsingRepFormsService" parent="proxyTemplate1">
+	<property name="target">
+		<bean class="com.pms.service.posp.EquipInUsingRepFormsService">
+			<property name="equipInUsingRepFormsDao">
+				<ref bean="equipInUsingRepFormsDao"></ref>
+			</property>
+		</bean>
+	</property>
+	</bean>	
+	<!-- 各支行机具使用情况汇总报表-->
+	<bean id="equipInUseForBankService" parent="proxyTemplate1">
+	<property name="target">
+		<bean class="com.pms.service.posp.EquipInUseForBankService">
+			<property name="equipInUseForBankSqlMapDao">
+				<ref bean="equipInUseForBankSqlMapDao"></ref>
+			</property>
+		</bean>
+	</property>
+	</bean>
+	<!-- 各维保商工作时效统计明细报表 -->
+	<bean id="eqMaintainFirmWorkingService" parent="proxyTemplate1">
+	<property name="target">
+		<bean class="com.pms.service.posp.EqMaintainFirmWorkingService">
+			<property name="eqMaintainFirmWorkingSqlMapDao">
+				<ref bean="eqMaintainFirmWorkingSqlMapDao"></ref>
+			</property>
+		</bean>
+	</property>
+	</bean>
+	<!-- 各维保商装撤机任务未完成统计明细报表 -->
+	<bean id="eqMaintainFirmNotFinishService" parent="proxyTemplate1">
+	<property name="target">
+		<bean class="com.pms.service.posp.EqMaintainFirmNotFinishService">
+			<property name="eqMaintainFirmNotFinishSqlMapDao">
+				<ref bean="eqMaintainFirmNotFinishSqlMapDao"></ref>
+			</property>
+		</bean>
+	</property>
+	</bean>
+	<!--机具撤回待处理-->
+	<bean id="recallWaitHandleService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.RecallWaitHandleService">
+				<property name="recallWaitHandleDao">
+					<ref bean="RecallWaitSqlMapDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<!--设备领用及归还报表-->
+	<bean id="drawReturnFormService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.DrawReturnFormService">
+				<property name="drawReturnFormDao">
+					<ref bean="DrawReturnFormDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<!--工作日历维护-->
+	<bean id="posWorkDateService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.PosWorkDateService">
+				<property name="posWorkDateDao">
+					<ref bean="posWorkDateDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	
+	<!-- 营销活动总规则-->
+	<bean id="marketingActivityService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.MarketingActivityService">
+				<property name="marketingActivityDao">
+					<ref bean="MarketingActivityDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<!-- 营销发片规则 -->
+	<bean id="cardRuleService" parent="proxyTemplate1">
+	<property name="target">
+		<bean class="com.pms.service.posp.CardRuleService">
+			<property name="cardRuleDao">
+				<ref bean="cardRuleDao"></ref>
+			</property>
+		</bean>
+	</property>
+	</bean>
+	<!--营销规则-->
+	<bean id="pospMarketRuleService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.PospMarketRuleService">
+				<property name="pospMarketRuleDao">
+					<ref bean="pospMarketRuleDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<!--银联商户或终端入档文件查询-->
+	<bean id="ShopOrPosToUnionpayService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopOrPosToUnionpayService">
+				<property name="shopOrPosToUnionpayDao">
+					<ref bean="shopOrPosToUnionpayDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!--卡风险监测-->
+	<bean id="cardMonitorService" class="com.pms.service.posp.CardMonitorService">
+	    <property name="cardMonitorTran">
+				<ref bean="cardMonitorTran"></ref>
+	    </property>
+	</bean>
+	<!-- 商户银联入档文档导出  -->
+	<bean id="cupsNewShopExport" class="com.kernel.impexp.CupsNewShopExport">
+	    <property name="cupsExportDao">
+				<ref bean="cupsExportDao"></ref>
+	    </property>
+	    <property name="filePath">
+				<value>${cups.document.path}</value>
+	    </property>
+	</bean>	
+	<!-- 终端银联入档文档导出 -->
+	<bean id="cupsNewTerminalExport" class="com.kernel.impexp.CupsNewTerminalExport">
+	    <property name="cupsExportDao">
+				<ref bean="cupsExportDao"></ref>
+	    </property>
+	    <property name="filePath">
+				<value>${cups.document.path}</value>
+	    </property>
+	</bean>
+
+	<!-- 商户银联反馈文档接收  -->
+	<bean id="receiveCupShopFile" class="com.kernel.impexp.ReceiveCupShopFile">
+	    <property name="cupsExportDao">
+				<ref bean="cupsExportDao"></ref>
+	    </property>
+	    <property name="receiveFilePath">
+				<value>${cups.document.receivepath}</value>
+	    </property>
+	</bean>		
+	<!-- 终端银联反馈文档接收-->
+	<bean id="receiveCupPosFile" class="com.kernel.impexp.ReceiveCupPosFile">
+	    <property name="cupsExportDao">
+				<ref bean="cupsExportDao"></ref>
+	    </property>
+	    <property name="receiveFilePath">
+				<value>${cups.document.receivepath}</value>
+	    </property>
+	</bean>
+	<!-- 营销结算查询 -->
+	<bean id="marketSettleService" parent="proxyTemplate1">
+	    <property name="target">
+	        <bean class="com.pms.service.posp.MarketSettleService">
+	            <property name="marketSettleDao">
+	                <ref bean="marketSettleDao" />
+	            </property>
+	        </bean>
+	    </property>
+	</bean>
+	
+	<!-- 营销交易参数配置 -->
+	<bean id="marketTranParamService" parent="proxyTemplate1">
+	    <property name="target">
+	        <bean class="com.pms.service.posp.MarketTranParamService">
+	            <property name="marketTranParamDao">
+	                <ref bean="marketTranParamDao" />
+	            </property>
+	        </bean>
+	    </property>
+	</bean>
+	<!-- 上送到协会 -->
+	<bean id="portNormTran"  class="com.pms.commands.PortNormTran">
+		<constructor-arg index="0"><value>${riskshop.tcp.ip}</value></constructor-arg>
+		<constructor-arg index="1"><value>${riskshop.tcp.port}</value></constructor-arg>
+		<constructor-arg index="2"><value>${riskshop.tcp.timeout}</value></constructor-arg>
+	</bean>
+	<!--黑名单商户 -->
+	<bean id="blacklistShopService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.BlacklistShopService">
+				<property name="blacklistShopDao">
+					<ref bean="blacklistShopDao" />
+				</property>
+				<property name="riskModifyQryService">
+					<ref bean="riskModifyQryService" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!--商户风险信息上报 -->
+	<bean id="riskInfoCommitService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.RiskInfoCommitService">
+				<property name="portNormTran">
+					<ref bean="portNormTran" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="shopRiskInfoCommit" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopRiskInfoCommit">
+				<property name="shopRiskInfoCommitDao">
+					<ref bean="shopRiskInfoCommitDao" />
+				</property>
+				<property name="riskInfoCommitService">
+					<ref bean="riskInfoCommitService" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!--企业商户信息上报 -->
+	<bean id="businessInfoCommitService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.BusinessInfoCommitService">
+				<property name="portNormTran">
+					<ref bean="portNormTran" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="businessShopCommitService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.BusinessShopCommitService">
+				<property name="businessShopCommitDao">
+					<ref bean="businessShopCommitDao" />
+				</property>
+				<property name="businessInfoCommitService">
+					<ref bean="businessInfoCommitService" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!--特约商户信息差错处理 -->
+	<bean id="contributingShopService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ContributingShopService">
+				<property name="portNormTran">
+					<ref bean="portNormTran" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="contributShopDisposeService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ContributShopDisposeService">
+				<property name="contributShopDisposeDao">
+					<ref bean="contributShopDisposeDao" />
+				</property>
+				<property name="contributingShopService">
+					<ref bean="contributingShopService" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!--批量信息导入查询 -->
+	<bean id="massInfoToleadService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.MassInfoToleadService">
+				<property name="portNormTran">
+					<ref bean="portNormTran" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="massInfoToleadQueryService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.MassInfoToleadQueryService">
+				<property name="massInfoToleadService">
+					<ref bean="massInfoToleadService" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!--商户风险信息查询-->
+	<bean id="shopRiskInfoQuery" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.RiskInfoQueryService">
+				<property name="portNormTran">
+					<ref bean="portNormTran" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="riskInfoQueryService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopRiskInfoQueryService">
+				<property name="shopRiskInfoQuery">
+					<ref bean="shopRiskInfoQuery" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!--商户风险信息变更查询-->
+	<bean id="riskInfoModifyQryService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.RiskInfoModifyQryService">
+				<property name="portNormTran">
+					<ref bean="portNormTran" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="riskModifyQryService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.RiskModifyQryService">
+				<property name="riskInfoModifyQryService">
+					<ref bean="riskInfoModifyQryService" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!--风险信息汇总查询-->
+	<bean id="riskInfoCollectService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.RiskInfoCollectService">
+				<property name="portNormTran">
+					<ref bean="portNormTran" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="riskInfoCollectQueryService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.RiskInfoCollectQueryService">
+				<property name="riskInfoCollectService">
+					<ref bean="riskInfoCollectService" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!--商户风险信息变更-->
+	<bean id="riskInfoModifyService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.RiskInfoModifyService">
+				<property name="portNormTran">
+					<ref bean="portNormTran" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="riskShopInfoModifyService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopRiskInfoModifyService">
+				<property name="riskInfoModifyService">
+					<ref bean="riskInfoModifyService" />
+				</property>
+				<property name="shopRiskInfoModifyDao">
+					<ref bean="shopRiskInfoModifyDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!--信息补录申请 -->
+	<bean id="infoReissueAskForService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.InfoReissueAskForService">
+				<property name="portNormTran">
+					<ref bean="portNormTran" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="infoAskForService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.InfoAskForService">
+				<property name="infoReissueAskForService">
+					<ref bean="infoReissueAskForService" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	
+	<!--用户登录登出 -->
+	<bean id="userLoginService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.UserLoginService">
+				<property name="portNormTran">
+					<ref bean="portNormTran" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="userloginSynchroService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.UserloginSynchroService">
+				<property name="userloginSynchroDao">
+					<ref bean="userloginSynchroDao" />
+				</property>
+				<property name="userLoginService">
+					<ref bean="userLoginService" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!--风险商户临时表 -->
+	<bean id="queryRiskInfoService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.QueryRiskInfoService">
+				<property name="queryRiskInfoDao">
+					<ref bean="queryRiskInfoDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="riskInfoResService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.RiskInfoResService">
+				<property name="riskInfoResDao">
+					<ref bean="riskInfoResDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<!--商户上传异常处理  -->
+	<bean id="shopUploadExceptionService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.ShopUploadExceptionService">
+			<property name="shopUploadExceptionDao">
+					<ref bean="shopUploadExceptionDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 协会推送监听 -->
+	 <bean class="com.pms.riskshop.server.TcpServerThread" init-method="start" destroy-method="destroy">
+		<constructor-arg index="0"><value>${riskshop.tcp.listener.port}</value></constructor-arg>
+		<constructor-arg index="1"><value>${riskshop.tcp.server.threadNum}</value></constructor-arg>
+	</bean> 
+	
+	<!--微信商户-->
+	<bean id="wechatShopService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.WechatShopService">
+				<property name="wechatShopDao">
+					<ref bean="WechatShopDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+
+    <!--微信营销消费类目费率结算-->
+	<bean id="businessCategoryService" parent="proxyTemplate1">
+		<property name="target">
+			<bean class="com.pms.service.posp.BusinessCategoryService">
+				<property name="businessCategoryDao">
+					<ref bean="businessCategoryDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	
+	<!-- 网关信息同步 -->
+	<bean id="gatewayTranService" class="com.gateway.service.GatewayTranService">
+		<property name="gatewayTran">
+			<ref bean="gatewayTran"/>
+		</property>
+	</bean>
+
+    <!--微信营销消费类目费率结算-->
+	<bean id="qrCodeBusinessService" class="com.pms.service.posp.QRCodeBusinessService">
+		<property name="qrCodeShopTranService">
+			<ref bean="gatewayTranService"/>
+		</property>
+		<property name="qrCodeShopDao">
+			<ref bean="qrCodeShopDao"/>
+		</property>
+	</bean>	
+	
+    <!--微信营销消费类目费率结算-->
+	<bean id="paramInfoService" class="com.pms.service.posp.ParamInfoService">
+		<property name="paramInfoDao">
+			<ref bean="paramInfoDao"/>
+		</property>
+	</bean>	
+	<!--  zhouya  add  begin 文件解析    -->
+	<!-- 配置的jobLauncher用来启动Job -->
+	<bean id="jobLauncher"  class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+		<property name="jobRepository" ref="jobRepository" />
+	</bean>
+	<!-- 配置的jobRepository为job提供持久化操作 -->
+	<bean id="jobRepository"  class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean" />
+	<!-- transactionManager提供事物管理操作  -->
+	<bean id="batchTransactionManager" class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" />
+    <!-- POS分期对账文件处理  -->
+	<import resource="com/batch/xml/batch_creditfile.xml" />
+	<!--  zhouya  add  end 文件解析    -->
+	
+	<import resource="scheduler.xml"/>
+</beans>
