@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="gb2312" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="AddressDistrict">
+	<typeAlias alias="addressDistrict" type="com.pms.domain.posp.AddressDistrict" />
+	<resultMap id="addrDistrictResultMap" class="addressDistrict">
+	<result property="addrId" column="ADDR_ID" />
+		<result property="addrNo" column="ADDR_NO" />
+		<result property="addrName" column="ADDR_NAME" />
+		<result property="parentId" column="PARENT_ID" />
+		<result property="addrLevel" column="ADDR_LEVEL" />
+	</resultMap>
+	<sql id="getAddrDistrict">
+		SELECT ADDR_ID,ADDR_NO,ADDR_NAME,PARENT_ID,ADDR_LEVEL FROM ADDRESS_DISTRICT WHERE 1=1
+		<isNotEmpty prepend="and" property="addrNo">
+			RTRIM(ADDR_NO)=RTRIM(#addrNo#)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="addrName">
+			ADDR_NAME  like '%$addrName$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="parentId">
+			RTRIM(PARENT_ID)= #parentId#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="addrLevel">
+			ADDR_LEVEL = #addrLevel#
+		</isNotEmpty>		
+	</sql>
+	<select id="getAddrDistrictOfPage" resultMap="addrDistrictResultMap"
+		parameterClass="addressDistrict">
+        SELECT * FROM (
+            SELECT SA.*,ROWNUM RN from (
+				 <include refid="getAddrDistrict"/>
+			) SA WHERE ROWNUM <![CDATA[<=]]> #endRow#
+		)  WHERE RN <![CDATA[>=]]> #beginRow#
+	</select>
+   
+    <select id="getAddrDistrictOfSize" resultClass="integer" parameterClass="addressDistrict">
+		SELECT COUNT(1) FROM (<include refid="getAddrDistrict"/>) 
+	</select>
+	<select id="getAddrNo" resultMap="addrDistrictResultMap" parameterClass="addressDistrict">
+		<include refid="getAddrDistrict"/>
+	</select>
+	<insert id="insertAddrDistrict" parameterClass="addressDistrict">
+		INSERT INTO ADDRESS_DISTRICT(ADDR_ID,ADDR_NO,ADDR_NAME,PARENT_ID,ADDR_LEVEL)
+		VALUES (SEQ_ADDRESS_DISTRICT.nextval,#addrNo#,#addrName#,#parentId#,#addrLevel#)
+	</insert>
+	<update id="updateAddrDistrict" parameterClass="addressDistrict">
+		UPDATE ADDRESS_DISTRICT SET 
+		ADDR_NO = RTRIM($addrNo$)
+		ADDR_NAME = $addrName$
+		PARENT_ID = RTRIM($parentId$)
+		ADDR_LEVEL = $addrLevel$
+		WHERE rtrim(ADDR_NO)=rtrim(#addrNo#)
+	</update>
+	
+	<delete id="deleteAddrDistrict" parameterClass="string">
+		DELETE FROM ADDRESS_DISTRICT WHERE rtrim(ADDR_NO)=rtrim(#addrNo#)
+	</delete>
+</sqlMap>
