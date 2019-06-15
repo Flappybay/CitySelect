@@ -9,3 +9,5 @@ DistrictDynamic.xml ibatis持久层对象与sql映射关系。
 DistrictDynamicBean.java 相应功能方法请求处理bean。
 DistrictDynamicService.java 业务功能service层，处理业务逻辑以及持久层访问。
 
+城市编号维护是维护在数据库里的，可通过管理系统进行维护。
+
