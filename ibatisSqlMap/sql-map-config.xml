@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="gb18030" standalone="no"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+    <typeAlias alias="terminal" type="com.pms.domain.posp.Terminal" />
+    <typeAlias alias="termBill" type="com.pms.domain.posp.TermBill" />
+	<typeAlias alias="posInfo" type="com.pms.domain.posp.PosInfo" />
+	<typeAlias alias="posInfoRunning" type="com.pms.domain.posp.PosInfoRunning" />
+	<typeAlias alias="maintainWorkAging" type="com.pms.domain.posp.MaintainWorkAging" />
+	<typeAlias alias="posInfoAlteration" type="com.pms.domain.posp.PosInfoAlteration" />
+
+	<sqlMap resource="com/pms/dao/sqlmap/BankOrgInfo.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/Role.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/SysRoleAuth.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/UserInfo.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/SysConfig.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/SysNum.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/Sequence.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/CtrlRole.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/CtrlUser.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/AuthUser.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/CtrlFun.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/CtrlFunHis.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/Flow.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/ApplyFlow.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/ApplyInfo.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/CtrlAuthOutgo.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/SysControl.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/AppBizType.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/AppDocManage.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/DeskMail.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/DeskMailRecv.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/DayEndAlert.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/InnerNotice.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/SysDynamicMsg.xml"/>
+	
+	<sqlMap resource="com/pms/dao/sqlmap/Dept.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/SystemParameter.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/Shop.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/ShopTemp.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/ShopRate.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/Terminal.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/TerminalPara.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/PsamPara.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/Cards.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/RegisterCard.xml"/>
+	
+	<sqlMap resource="com/pms/dao/sqlmap/ZonePreference.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/UnitInfo.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/NetOper.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/MyCustomer.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/FeeRate.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/TransactionLimit.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/Market.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/UnknownCard.xml"/>
+	
+	<sqlMap resource="com/pms/dao/sqlmap/TransDef.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/AppDef.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/OperationInfo.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/FunctionInfo.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/OperationTemp.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/PrintData.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/PrintInfo.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/PrintModule.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/Commands.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/DynamicMenu.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/AppMenu.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/PayList.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/PayClass.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/PayType.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/TransCommands.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/ErrorInfo.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/Module.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/ShowDialog.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/ShortMessage.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/FirstPage.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/PosKey.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/Brand.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/Supplier.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/ShopGroup.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/ShopKind.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/ShopTransLevel.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/FeePara.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/GroupShop.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/CusDoc.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/AppMessage.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/AlertOption.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/AlertShop.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/BadShop.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/TerminalNormal.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/GroupShopTemp.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/Institution.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/LogClear.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/HistoryLs.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/OptionSqlMap.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/ShopFeePara.xml" />
+	
+	<sqlMap resource="com/pms/dao/sqlmap/ThirdPartyCompanies.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/DataConfig.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/AudiHistory.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/TerminalKey.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/AudiHistoryShop.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/ShopExt.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/TerminalExt.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/ShopRateAlg.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/ZoneDictionary.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/ShopCardInt.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/AppTermMesage.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/TerminalAudit.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/TerminalNormalAudit.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/MccFeeRelevance.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/SysDataOptions.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/SysDataConfig.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/BathTerminalAudit.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/TermExportCups.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/ShopRing.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/SubMerchant.xml"/>
+	<!-- 子商户级别维护 -->
+	<sqlMap resource="com/pms/dao/sqlmap/SubMerchantLevel.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/SubMerchantLevelAuding.xml"/>
+	<!-- 电子结算费率维护  cuixinhui add-->
+	<sqlMap resource="com/pms/dao/sqlmap/ElcBillRate.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/ElcBillRateAuding.xml"/>
+	
+	<sqlMap resource="com/pms/dao/sqlmap/Apply.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/SubMerchantAuding.xml"/>
+	<sqlMap resource="com/pms/dao/sqlmap/ApplyStep.xml"/>
+	<!-- 发卡行分润算法代码 -->
+	<sqlMap resource="com/pms/dao/sqlmap/Issuerfeeacl.xml" />
+	<!-- 商户手续费代码对应关系 -->
+	<sqlMap resource="com/pms/dao/sqlmap/ShopFeeCode.xml" />
+	
+	<!-- 蔬菜机 -->
+	<sqlMap resource="com/pms/dao/sqlmap/VegShop.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/Merchant.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/MerchantAuding.xml" />
+	<!-- 鼎好 -->
+	<sqlMap resource="com/pms/dao/sqlmap/TransDetail.xml" />
+	<!-- 系统运营时间 -->
+	<sqlMap resource="com/pms/dao/sqlmap/SysDateApply.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/SysDateStep.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/FeeAssing.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/FeeAssingAduing.xml" />
+	<!-- 营运时间 -->
+	<sqlMap resource="com/pms/dao/sqlmap/SysWorkdate.xml" />
+	<!-- 跑批任务系统参数SysCfgPara -->
+	<sqlMap resource="com/pms/dao/sqlmap/SysCfgPara.xml" />
+	<!-- 分期对账  -->
+	<sqlMap resource="com/batch/sqlmap/CreditCardTranRec.xml" />	
+    <!-- 分期汇率 -->
+	<sqlMap resource="com/pms/dao/sqlmap/FenqiShop.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/FenqiParaProduct.xml" />
+	<!-- 商户黑名单 -->
+	<sqlMap resource="com/pms/dao/sqlmap/ShopBlacklist.xml" />
+	<!-- 附件 -->
+	<sqlMap resource="com/pms/dao/sqlmap/CommAttach.xml" />
+	<!-- POS维护厂商 -->
+	<sqlMap resource="com/pms/dao/sqlmap/Maintain.xml" />
+	<!-- 搜索 -->
+	<sqlMap resource="com/pms/dao/sqlmap/AutoSearch.xml" />
+	<!-- 集团信息维护 -->
+	<sqlMap resource="com/pms/dao/sqlmap/Groups.xml" />
+	<!-- 集团信息与商户对应关系维护 -->
+	<sqlMap resource="com/pms/dao/sqlmap/GroupsToShop.xml" />
+	<!-- 终端编号对应关系 -->
+	<sqlMap resource="com/pms/dao/sqlmap/TerminalCorrelate.xml" />
+	<!-- 配置信息维护 -->
+	<sqlMap resource="com/pms/dao/sqlmap/Translation.xml" />
+	<!-- 终端临时信息 -->
+	<sqlMap resource="com/pms/dao/sqlmap/TerminalTemp.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/TerminalQuery.xml" />
+	<!-- 终端操作记录 -->
+	<sqlMap resource="com/pms/dao/sqlmap/TerminalOperateRecord.xml" />
+	<!-- 终端任务信息 -->
+	<sqlMap resource="com/pms/dao/sqlmap/TerminalTask.xml" />
+	<!-- 用户权限 -->
+	<sqlMap resource="com/pms/dao/sqlmap/SysAuthority.xml" />
+	<!-- 终端策略维护 -->
+	<sqlMap resource="com/pms/dao/sqlmap/TerminalStrategy.xml" />
+	<sqlMap resource="com/pms/dao/sqlmap/TerminalStrategyMaintain.xml" />
+	<!-- 终端策略更新查看-->
+	<sqlMap resource="com/pms/dao/sqlmap/TmspTranRec.xml" />
+	<!-- 终端交易统计 -->
+	<sqlMap resource="com/pms/dao/sqlmap/TermTransSumTwo.xml" />
+	<!-- 终端交易统计  详细 -->
+	<sqlMap resource="com/pms/dao/sqlmap/TermTransSum.xml" />
+	<!-- 商户交易统计 -->
+	<sqlMap resource="com/pms/dao/sqlmap/ShopTransSum.xml" />	
+	<!-- 商户交易统计  详细 -->
+	<sqlMap resource="com/pms/dao/sqlmap/ShopTransSumDetail.xml" />
+	<!-- POS维护商巡检 -->
+	<sqlMap resource="com/pms/dao/sqlmap/PosInspect.xml" />
+	<!-- 终端交易流水查询 -->
+	<sqlMap resource="com/pms/dao/sqlmap/PospTranRec.xml" />
+	<!-- 商户白名单 -->
+	<sqlMap resource="com/pms/dao/sqlmap/ShopWhiteList.xml" />
+	<!-- 自收单集团子商户管理 -->
+	<sqlMap resource="com/pms/dao/sqlmap/SubclassOfBlocShop.xml" />
+	<!-- 工单管理 -->
+	<sqlMap resource="com/pms/dao/sqlmap/TermBillSqlMap.xml"/>
+	<!-- 任务处理管理 -->
+	<sqlMap resource="com/pms/dao/sqlmap/TaskHandle.xml" />
+	<!-- 任务校验-->
+	<sqlMap resource="com/pms/dao/sqlmap/TaskVerify.xml" />
+	<!-- 待灌装任务报表-->
+	<sqlMap resource="com/pms/dao/sqlmap/TaskReport.xml"/>
+	<!-- 装机任务报表 -->
+	<sqlMap resource="com/pms/dao/sqlmap/TaskInstallForms.xml"/>
+	<!-- 撤机任务报表 -->
+	<sqlMap resource="com/pms/dao/sqlmap/TaskRecallForms.xml"/>
+	<!-- 任务全量报表 -->
+	<sqlMap resource="com/pms/dao/sqlmap/TaskReportDetails.xml"/>
+	<!-- 终端资料管理导出 -->
+	<sqlMap resource="com/pms/dao/sqlmap/TerminalDataManage.xml"/>
+	<!-- 待撤机任务报表 -->
+	<sqlMap resource="com/pms/dao/sqlmap/StayTaskRecallForms.xml"/>
+	<!--省市区县三级联动 -->
+	<sqlMap resource="com/pms/dao/sqlmap/DistrictDynamic.xml"/>	
+	<!--城市参数维护 -->
+	<sqlMap resource="com/pms/dao/sqlmap/AddressDistrictSqlMap.xml"/>	
+	<!-- 修改商户的信息 -->
+	<sqlMap resource="com/pms/dao/sqlmap/ShopUpdateInfo.xml"/>	
+	<!-- 终端密钥管理 -->
+	<sqlMap resource="com/pms/dao/sqlmap/TerminalSecretKey.xml"/>
+	<!-- 机具设备信息查询 -->
+	<sqlMap resource="com/pms/dao/sqlmap/PosInfo.xml"/>	
+	<!-- 机具领用归还明细查询--> 
+	<sqlMap resource="com/pms/dao/sqlmap/PosUseAndReturn.xml"/>	
+	 <!--手工入库 -->
+	<sqlMap resource="com/pms/dao/sqlmap/ManualDispose.xml"/>
+	<!--机具丢失查询  -->
+	<sqlMap resource="com/pms/dao/sqlmap/LoseQuery.xml"/>	
+	 <!--机具送修及返还查询  -->
+	<sqlMap resource="com/pms/dao/sqlmap/RepairRevert.xml"/>
+	 <!--维保商出库明细   -->
+	<sqlMap resource="com/pms/dao/sqlmap/MaintainFirmStock.xml"/>
+	 <!--机具撤回待处理   -->
+	<sqlMap resource="com/pms/dao/sqlmap/RecallWaitHandle.xml"/>
+	<!--维保商入库明细   -->
+	<sqlMap resource="com/pms/dao/sqlmap/MaintainAccess.xml"/>
+	<!-- 机具流转历史插入-->
+	<sqlMap resource="com/pms/dao/sqlmap/PosRunning.xml"/>
+	<!-- 运维暂管和变更查询 --> 
+	<sqlMap resource="com/pms/dao/sqlmap/PosManageTemp.xml"/>
+	<!-- 维保商工作时效记录 --> 
+	<sqlMap resource="com/pms/dao/sqlmap/MaintainWorkAging.xml"/>
+	<!--厂商送修及修复明细  -->
+	<sqlMap resource="com/pms/dao/sqlmap/FixFirmRestore.xml"/>
+	<!-- 运维暂管明细查询  -->
+	<sqlMap resource="com/pms/dao/sqlmap/TransientHandle.xml"/>
+	<!-- 设备领用及返还报表  -->
+	<sqlMap resource="com/pms/dao/sqlmap/DrawReturnForm.xml"/>
+	<!--机具归还 -->
+	<sqlMap resource="com/pms/dao/sqlmap/PosReturn.xml"/>
+	<!--机具申领 -->
+	<sqlMap resource="com/pms/dao/sqlmap/PosApply.xml"/>
+	<!-- 机具送修及返还 -->
+	<sqlMap resource="com/pms/dao/sqlmap/PosFix.xml"/>	
+	<!-- 机具维修厂商管理  -->
+	<sqlMap resource="com/pms/dao/sqlmap/FixFirm.xml"/>
+	<!--机具丢失报表查询-->
+	<sqlMap resource="com/pms/dao/sqlmap/EquipLoseReportForms.xml"/>
+	<!--手工入库处理报表-->
+	<sqlMap resource="com/pms/dao/sqlmap/EquipPutInStorageReportForms.xml"/>
+	<!--各维保商工作时效统计明细报表-->
+ 	<sqlMap resource="com/pms/dao/sqlmap/EqMaintainFirmWorkingReportForms.xml"/>
+ 	<!--各维保商装撤机任务未完成统计明细报表-->
+	<sqlMap resource="com/pms/dao/sqlmap/EqMaintainFirmNotFinishReportForms.xml"/>
+	<!--各支行机具使用情况汇总统计报表-->
+	<sqlMap resource="com/pms/dao/sqlmap/EquipInUseForBankReportForms.xml"/>
+	<!--各支行在用机具布放汇总日月报表-->
+	<sqlMap resource="com/pms/dao/sqlmap/EquipInUsingRepForms.xml"/>
+	<!-- 工作日历维护 -->
+	<sqlMap resource="com/pms/dao/sqlmap/posWorkDate.xml"/>
+	<!--营销活动  -->
+	<sqlMap resource="com/pms/dao/sqlmap/MarketingActivity.xml"/>
+	<!--营销卡片规则  -->
+	<sqlMap resource="com/pms/dao/sqlmap/CardRule.xml"/>
+	<!-- 营销规则查询 -->
+	<sqlMap resource="com/pms/dao/sqlmap/PospMarketRule.xml"/>
+	<!-- 银联入档文件导出 -->
+	<sqlMap resource="com/pms/dao/sqlmap/CupsExport.xml"/>
+	<!-- 银联商户或终端入档文件查询 -->
+	<sqlMap resource="com/pms/dao/sqlmap/ShopOrPosToUnionpay.xml"/>
+	<!-- 黑名单商户-->
+	<sqlMap resource="com/pms/dao/sqlmap/BlacklistShop.xml"/>
+	<!-- 风险商户信息上报-->
+	<sqlMap resource="com/pms/dao/sqlmap/RiskInfo.xml"/>
+	<!-- 营销清算 -->
+	<sqlMap resource="com/pms/dao/sqlmap/MarketSettle.xml"/>
+	<!-- 营销交易参数维护 -->
+	<sqlMap resource="com/pms/dao/sqlmap/MarketTranParam.xml"/>
+	
+	<!-- 风险商户临时表-->
+	<sqlMap resource="com/pms/dao/sqlmap/QueryRiskInfo.xml"/>
+	<!-- 接收黑名单入库 -->
+	<sqlMap resource="com/pms/dao/sqlmap/RiskInfoRes.xml"/>
+	<!-- 特约商户上传 -->
+	<sqlMap resource="com/pms/dao/sqlmap/BusinessShop.xml"/>	
+	<!-- 商户上传异常处理 -->
+	<sqlMap resource="com/pms/dao/sqlmap/ShopUploadException.xml"/>	
+	
+	<!-- 二维码商户 -->
+	<sqlMap resource="com/pms/dao/sqlmap/WechatShop.xml"/>
+	<!-- 消费类目费率结算 -->
+	<sqlMap resource="com/pms/dao/sqlmap/BusinessCategory.xml"/>	
+	<!-- 二维码商户第三方信息 -->
+	<sqlMap resource="com/pms/dao/sqlmap/QRCodeShop.xml"/>	
+	<!-- 参数配置维护 -->
+	<sqlMap resource="com/pms/dao/sqlmap/ParamInfo.xml"/>	
+	
+</sqlMapConfig>
